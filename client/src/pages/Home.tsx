@@ -29,23 +29,31 @@ export default function Home() {
               transition={{ duration: 0.8, ease: "easeOut" }}
             >
               <p className="font-mono-brand text-xs tracking-[0.3em] uppercase text-[#1E1E1E]/60 mb-6">
-                Premium Appliances
+                jude premium appliances
               </p>
-              <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-medium leading-[0.95] mb-8">
-                <span className="text-[#4A3520]">your </span>
-                <span className="text-[#D4917F]">life, </span>
+              <h1 className="font-display text-4xl md:text-6xl lg:text-7xl font-medium leading-[1.08] mb-6">
+                <span className="text-[#4A3520]">French 4-door retro</span>
                 <br />
-                <span className="text-[#F5EDE0]">styled</span>
+                <span className="text-[#F5EDE0]">refrigerator</span>
+                <br />
+                <span className="text-[#D4917F]">for modern U.S. homes</span>
               </h1>
               <p className="font-body text-base md:text-lg text-[#1E1E1E]/70 max-w-md mb-10 leading-relaxed">
-                Inspired by the bold individuality of New York City, jude designs appliances
-                that celebrate personalization and joy.
+                508L capacity, 9 signature color finishes, and white-glove delivery support.
+                Built for customers who want statement design with premium everyday performance.
               </p>
-              <Link href="/product">
-                <span className="jude-btn-primary">
-                  Shop Now <ArrowRight size={16} />
-                </span>
-              </Link>
+              <div className="flex flex-wrap gap-3">
+                <Link href="/product">
+                  <span className="jude-btn-primary">
+                    Shop Refrigerator <ArrowRight size={16} />
+                  </span>
+                </Link>
+                <Link href="/orders">
+                  <span className="jude-btn-outline border-[#4A3520] text-[#4A3520] hover:bg-[#4A3520] hover:text-[#F5EDE0]">
+                    Track Existing Order
+                  </span>
+                </Link>
+              </div>
             </motion.div>
 
             {/* Right: Product Image */}
