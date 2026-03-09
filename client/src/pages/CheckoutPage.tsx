@@ -388,6 +388,23 @@ export default function CheckoutPage() {
                     )}
                   </button>
 
+                  <div className="mt-4 bg-[#F5EDE0] border border-[#D9CFC2] rounded p-3">
+                    <p className="font-mono-brand text-[10px] tracking-widest uppercase text-[#6B6358] mb-1">
+                      Checkout Protection
+                    </p>
+                    <p className="font-body text-xs text-[#1E1E1E] leading-relaxed">
+                      Order details are encrypted in transit. No card details are collected on this site.
+                      For payment or delivery support, contact{" "}
+                      <a
+                        href="mailto:support@jude.homes"
+                        className="text-[#D93A1D] underline underline-offset-2"
+                      >
+                        support@jude.homes
+                      </a>
+                      .
+                    </p>
+                  </div>
+
                   <p className="font-mono-brand text-[10px] tracking-wider text-center text-[#6B6358] mt-4">
                     No card details are collected on this site.
                   </p>

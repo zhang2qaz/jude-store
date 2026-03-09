@@ -9,7 +9,7 @@ export default function Footer() {
       <div className="h-[3px] bg-gradient-to-r from-[#A3A800] via-[#E8762A] to-[#D93A1D]" />
 
       <div className="container py-16 md:py-20">
-        <div className="grid md:grid-cols-3 gap-12">
+        <div className="grid md:grid-cols-4 gap-12">
           {/* Brand Column */}
           <div className="md:col-span-2">
             <h2 className="font-display text-4xl md:text-5xl font-medium mb-6">jude</h2>
@@ -39,6 +39,29 @@ export default function Footer() {
                 About
               </a>
             </nav>
+          </div>
+
+          {/* Trust & Support */}
+          <div>
+            <h3 className="font-mono-brand text-xs tracking-widest uppercase text-[#A3A800] mb-6">
+              Support
+            </h3>
+            <div className="space-y-3">
+              <p className="font-body text-sm text-[#9B9488]">5-year limited warranty</p>
+              <p className="font-body text-sm text-[#9B9488]">White-glove delivery available</p>
+              <a
+                href="mailto:support@jude.homes"
+                className="block font-body text-sm text-[#9B9488] hover:text-[#F5EDE0] transition-colors"
+              >
+                support@jude.homes
+              </a>
+              <a
+                href="/orders"
+                className="block font-body text-sm text-[#9B9488] hover:text-[#F5EDE0] transition-colors"
+              >
+                Order Help
+              </a>
+            </div>
           </div>
         </div>
 

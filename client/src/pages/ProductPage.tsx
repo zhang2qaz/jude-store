@@ -272,6 +272,48 @@ export default function ProductPage() {
                   </span>
                 </div>
               </div>
+
+              {/* Trust Summary */}
+              <div className="mt-6 bg-[#FFFBF5] border border-[#D9CFC2] rounded-lg p-5 space-y-4">
+                <div>
+                  <p className="font-mono-brand text-[10px] tracking-widest uppercase text-[#6B6358] mb-1">
+                    Warranty
+                  </p>
+                  <p className="font-body text-sm text-[#1E1E1E]">
+                    5-year limited warranty with dedicated premium appliance support.
+                  </p>
+                </div>
+                <div>
+                  <p className="font-mono-brand text-[10px] tracking-widest uppercase text-[#6B6358] mb-1">
+                    Delivery & Installation
+                  </p>
+                  <p className="font-body text-sm text-[#1E1E1E]">
+                    White-glove delivery available in major U.S. metro areas with optional in-home setup.
+                  </p>
+                </div>
+                <div>
+                  <p className="font-mono-brand text-[10px] tracking-widest uppercase text-[#6B6358] mb-1">
+                    Need Help?
+                  </p>
+                  <p className="font-body text-sm text-[#1E1E1E]">
+                    Questions about fit, power, or delivery? Email{" "}
+                    <a
+                      href="mailto:support@jude.homes"
+                      className="text-[#D93A1D] hover:text-[#C0311A] underline underline-offset-2"
+                    >
+                      support@jude.homes
+                    </a>{" "}
+                    or review{" "}
+                    <a
+                      href="/orders"
+                      className="text-[#D93A1D] hover:text-[#C0311A] underline underline-offset-2"
+                    >
+                      order support
+                    </a>
+                    .
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
