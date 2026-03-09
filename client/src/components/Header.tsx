@@ -26,7 +26,10 @@ export default function Header() {
     <header className="sticky top-0 z-50">
       <div className="bg-[#1E1E1E] text-[#F5EDE0]">
         <div className="container h-8 flex items-center justify-between">
-          <p className="font-mono-brand text-[10px] tracking-widest uppercase">
+          <p className="font-mono-brand text-[10px] tracking-widest uppercase md:hidden">
+            Free Shipping · Premium Support
+          </p>
+          <p className="font-mono-brand text-[10px] tracking-widest uppercase hidden md:block">
             Free Shipping · Premium Support · Limited Color Drop
           </p>
           <div className="hidden md:flex items-center gap-5">

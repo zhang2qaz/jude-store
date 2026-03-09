@@ -20,8 +20,8 @@ export default function Home() {
 
       {/* Hero Section — Olive Green background with large serif tagline */}
       <section className="relative bg-[#A3A800] overflow-hidden grain-overlay">
-        <div className="container relative z-10 py-20 md:py-32 lg:py-40">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="container relative z-10 py-14 md:py-28 lg:py-36">
+          <div className="grid lg:grid-cols-2 gap-8 md:gap-12 items-center">
             {/* Left: Tagline */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -31,24 +31,24 @@ export default function Home() {
               <p className="font-mono-brand text-xs tracking-[0.3em] uppercase text-[#1E1E1E]/60 mb-6">
                 jude premium appliances
               </p>
-              <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-medium leading-[0.95] mb-8">
+              <h1 className="font-display text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-medium leading-[1.02] md:leading-[0.95] mb-6 md:mb-8">
                 <span className="text-[#4A3520]">your </span>
                 <span className="text-[#D4917F]">life, </span>
                 <br />
                 <span className="text-[#F5EDE0]">styled</span>
               </h1>
-              <p className="font-body text-base md:text-lg text-[#1E1E1E]/70 max-w-md mb-10 leading-relaxed">
+              <p className="font-body text-sm md:text-lg text-[#1E1E1E]/75 max-w-md mb-7 md:mb-10 leading-relaxed">
                 508L capacity, 9 signature color finishes, and white-glove delivery support.
                 Built for customers who want statement design with premium everyday performance.
               </p>
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3">
                 <Link href="/product">
-                  <span className="jude-btn-primary">
+                  <span className="jude-btn-primary w-full sm:w-auto">
                     Shop Refrigerator <ArrowRight size={16} />
                   </span>
                 </Link>
                 <Link href="/orders">
-                  <span className="jude-btn-outline border-[#4A3520] text-[#4A3520] hover:bg-[#4A3520] hover:text-[#F5EDE0]">
+                  <span className="jude-btn-outline border-[#4A3520] text-[#4A3520] hover:bg-[#4A3520] hover:text-[#F5EDE0] w-full sm:w-auto">
                     Track Existing Order
                   </span>
                 </Link>
@@ -76,7 +76,7 @@ export default function Home() {
 
       {/* Brand Statement — Cornflower Blue */}
       <section className="bg-[#6B8CDB] grain-overlay">
-        <div className="container relative z-10 py-20 md:py-28">
+        <div className="container relative z-10 py-16 md:py-24">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -84,7 +84,7 @@ export default function Home() {
             transition={{ duration: 0.7 }}
             className="max-w-4xl"
           >
-            <p className="font-display text-3xl md:text-4xl lg:text-5xl font-medium leading-snug text-[#F5EDE0]">
+            <p className="font-display text-2xl md:text-4xl lg:text-5xl font-medium leading-snug text-[#F5EDE0]">
               We celebrate the uniqueness of every home by crafting appliances that empower
               personal style and reflect individuality.
             </p>
@@ -97,18 +97,18 @@ export default function Home() {
 
       {/* Color Showcase — Cream background */}
       <section className="bg-[#F5EDE0]">
-        <div className="container py-20 md:py-28">
+        <div className="container py-16 md:py-24">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-center mb-16"
+            className="text-center mb-10 md:mb-16"
           >
             <p className="font-mono-brand text-xs tracking-[0.3em] uppercase text-[#A3A800] mb-4">
               Express Yourself
             </p>
-            <h2 className="font-display text-3xl md:text-5xl font-medium text-[#1E1E1E]">
+            <h2 className="font-display text-2xl md:text-5xl font-medium text-[#1E1E1E]">
               Nine Colors. Your Choice.
             </h2>
           </motion.div>
@@ -153,7 +153,7 @@ export default function Home() {
 
       {/* Brand Values — Vermillion Red */}
       <section className="bg-[#D93A1D] grain-overlay">
-        <div className="container relative z-10 py-20 md:py-28">
+        <div className="container relative z-10 py-16 md:py-24">
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
             {[
               { label: "Adaptable", desc: "Effortlessly integrating into different homes and evolving lifestyles." },
@@ -178,7 +178,7 @@ export default function Home() {
 
       {/* Delivery & Installation Support */}
       <section className="bg-[#FFFBF5] border-y border-[#D9CFC2]">
-        <div className="container py-16 md:py-20">
+        <div className="container py-14 md:py-20">
           <div className="grid lg:grid-cols-2 gap-8 items-center">
             <div>
               <p className="font-mono-brand text-xs tracking-[0.3em] uppercase text-[#A3A800] mb-4">
@@ -228,17 +228,17 @@ export default function Home() {
 
       {/* CTA Section — Orange gradient */}
       <section className="bg-gradient-to-r from-[#A3A800] to-[#D93A1D] grain-overlay">
-        <div className="container relative z-10 py-20 md:py-28 text-center">
+        <div className="container relative z-10 py-16 md:py-24 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
           >
-            <h2 className="font-display text-4xl md:text-6xl font-medium text-[#F5EDE0] mb-6">
+            <h2 className="font-display text-3xl md:text-6xl font-medium text-[#F5EDE0] mb-5 md:mb-6">
               Ready to Style Your Kitchen?
             </h2>
-            <p className="font-body text-lg text-[#F5EDE0]/80 mb-10 max-w-lg mx-auto">
+            <p className="font-body text-base md:text-lg text-[#F5EDE0]/85 mb-8 md:mb-10 max-w-lg mx-auto">
               The jude French 4-Door Retro Refrigerator. Starting at $49,999.
             </p>
             <Link href="/product">

@@ -8,23 +8,38 @@ export default function Footer() {
       {/* Top gradient rule */}
       <div className="h-[3px] bg-gradient-to-r from-[#A3A800] via-[#E8762A] to-[#D93A1D]" />
 
-      <div className="container py-16 md:py-20">
-        <div className="grid md:grid-cols-5 gap-10">
+      <div className="container py-12 md:py-20">
+        <div className="flex flex-wrap gap-2 mb-8 md:hidden">
+          <a
+            href="mailto:support@jude.homes"
+            className="px-3 py-2 border border-[#6B6358] rounded font-mono-brand text-[10px] tracking-widest uppercase text-[#9B9488] hover:text-[#F5EDE0] hover:border-[#F5EDE0] transition-colors"
+          >
+            Email Support
+          </a>
+          <a
+            href="/faq"
+            className="px-3 py-2 border border-[#6B6358] rounded font-mono-brand text-[10px] tracking-widest uppercase text-[#9B9488] hover:text-[#F5EDE0] hover:border-[#F5EDE0] transition-colors"
+          >
+            FAQ
+          </a>
+        </div>
+
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-8 md:gap-10">
           {/* Brand Column */}
-          <div className="md:col-span-2">
-            <h2 className="font-display text-4xl md:text-5xl font-medium mb-6">jude</h2>
-            <p className="font-display text-lg md:text-xl text-[#D4917F] italic mb-4">
+          <div className="col-span-2 md:col-span-2">
+            <h2 className="font-display text-3xl md:text-5xl font-medium mb-4 md:mb-6">jude</h2>
+            <p className="font-display text-base md:text-xl text-[#D4917F] italic mb-3 md:mb-4">
               your life, styled
             </p>
-            <p className="font-body text-sm text-[#9B9488] max-w-md leading-relaxed">
+            <p className="font-body text-xs md:text-sm text-[#9B9488] max-w-md leading-relaxed">
               Rooted in New York City. Inspired by the city's authentic spirit, expressive creativity,
               and thoughtful approach to living. Each detail is intentionally crafted to create homes
               that feel sophisticated, warm, and true to you.
             </p>
-            <div className="mt-5 space-y-2">
-              <p className="font-body text-sm text-[#9B9488]">support@jude.homes</p>
-              <p className="font-body text-sm text-[#9B9488]">Mon-Sat · 9:00-18:00 EST</p>
-              <p className="font-body text-sm text-[#9B9488]">New York City</p>
+            <div className="mt-4 md:mt-5 space-y-1.5 md:space-y-2">
+              <p className="font-body text-xs md:text-sm text-[#9B9488]">support@jude.homes</p>
+              <p className="font-body text-xs md:text-sm text-[#9B9488]">Mon-Sat · 9:00-18:00 EST</p>
+              <p className="font-body text-xs md:text-sm text-[#9B9488]">New York City</p>
             </div>
           </div>
 

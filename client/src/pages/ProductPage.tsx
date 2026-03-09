@@ -51,6 +51,12 @@ export default function ProductPage() {
     setTimeout(() => setAdded(false), 2000);
   };
 
+  const handleBuyNow = () => {
+    if (currentStock <= 0) return;
+    handleAddToCart();
+    navigate("/checkout");
+  };
+
   return (
     <div className="min-h-screen flex flex-col bg-[#F5EDE0]">
       <Header />
@@ -66,8 +72,8 @@ export default function ProductPage() {
         </div>
 
         {/* Product Section */}
-        <div className="container pb-20">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
+        <div className="container pb-28 md:pb-20">
+          <div className="grid lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16">
             {/* Left: Image Gallery */}
             <div>
               {/* Main Image */}
@@ -113,7 +119,7 @@ export default function ProductPage() {
                 Premium Appliance
               </p>
 
-              <h1 className="font-display text-3xl md:text-4xl font-medium text-[#1E1E1E] mb-2">
+              <h1 className="font-display text-2xl md:text-4xl font-medium text-[#1E1E1E] mb-2">
                 {PRODUCT.name}
               </h1>
 
@@ -128,7 +134,7 @@ export default function ProductPage() {
               </p>
 
               {/* Key Product Overview */}
-              <div className="grid grid-cols-2 gap-3 mb-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
                 {PRODUCT.overview.map((item) => (
                   <div key={item.label} className="bg-[#FFFBF5] border border-[#D9CFC2] rounded p-3">
                     <p className="font-mono-brand text-[10px] tracking-wider uppercase text-[#6B6358] mb-1">
@@ -229,11 +235,7 @@ export default function ProductPage() {
 
               {/* Buy Now */}
               <button
-                onClick={() => {
-                  if (currentStock <= 0) return;
-                  handleAddToCart();
-                  navigate("/checkout");
-                }}
+                onClick={handleBuyNow}
                 disabled={currentStock <= 0}
                 className={`w-full flex items-center justify-center gap-3 border-2 font-body text-sm tracking-wider uppercase py-4 transition-all mb-4 ${
                   currentStock <= 0
@@ -399,7 +401,7 @@ export default function ProductPage() {
                   {Object.entries(PRODUCT.specs).map(([key, value]) => (
                     <div
                       key={key}
-                      className="flex justify-between items-center py-4 border-b border-[#F5EDE0]/10"
+                      className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 py-4 border-b border-[#F5EDE0]/10"
                     >
                       <span className="font-mono-brand text-xs tracking-wider uppercase text-[#F5EDE0]/50">
                         {key}
@@ -518,6 +520,30 @@ export default function ProductPage() {
           </div>
         </section>
       </main>
+
+      {/* Mobile Sticky CTA */}
+      <div className="fixed inset-x-0 bottom-0 z-40 lg:hidden border-t border-[#D9CFC2] bg-[#FFFBF5]/95 backdrop-blur-sm">
+        <div className="container py-3 pb-[calc(env(safe-area-inset-bottom)+0.5rem)] flex items-center gap-3">
+          <div className="min-w-0">
+            <p className="font-display text-base text-[#1E1E1E]">{formatPrice(PRODUCT.price)}</p>
+            <p className={`font-body text-[11px] ${currentStock > 0 ? "text-[#6B6358]" : "text-[#D93A1D]"}`}>
+              {currentStock > 0 ? `${currentStock} in stock` : "Out of stock"}
+            </p>
+          </div>
+          <button
+            onClick={handleBuyNow}
+            disabled={currentStock <= 0}
+            className={`ml-auto flex items-center justify-center gap-2 px-5 py-3 text-xs font-body tracking-wider uppercase transition-colors ${
+              currentStock <= 0
+                ? "bg-gray-400 text-white cursor-not-allowed"
+                : "bg-[#D93A1D] text-[#F5EDE0] hover:bg-[#C0311A]"
+            }`}
+          >
+            <ShoppingBag size={14} />
+            Buy Now
+          </button>
+        </div>
+      </div>
 
       <Footer />
     </div>
