@@ -10,7 +10,7 @@ import { Lock, CheckCircle } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useCart } from "@/contexts/CartContext";
-import { formatPrice } from "@/lib/product";
+import { PRODUCT, formatPrice } from "@/lib/product";
 import { toast } from "sonner";
 import { trpc } from "@/lib/trpc";
 
@@ -91,7 +91,7 @@ export default function CheckoutPage() {
       // Process each cart item as a separate order
       for (const item of items) {
         const result = await placeOrder.mutateAsync({
-          productId: item.id.split("-").slice(0, -2).join("-") || "jude-french-4door-retro-refrigerator",
+          productId: PRODUCT.id,
           colorName: item.color,
           quantity: item.quantity,
           totalPrice: item.price * item.quantity,
