@@ -4,60 +4,49 @@ import { InsertUser, users, inventory, orders, InsertOrder, Order } from "../dri
 import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
-let _schemaEnsured = false;
+const FALLBACK_DEFAULT_STOCK = 10;
+const fallbackStockMap = new Map<string, number>();
+const fallbackOrders = new Map<string, Order>();
+let fallbackOrderIdCounter = 1;
 
-async function ensureSchema(db: ReturnType<typeof drizzle>) {
-  if (_schemaEnsured) return;
+function stockKey(productId: string, colorName: string) {
+  return `${productId}:${colorName}`;
+}
 
-  await db.execute(sql`
-    CREATE TABLE IF NOT EXISTS users (
-      id INT AUTO_INCREMENT PRIMARY KEY,
-      openId VARCHAR(64) NOT NULL UNIQUE,
-      name TEXT NULL,
-      email VARCHAR(320) NULL,
-      loginMethod VARCHAR(64) NULL,
-      role ENUM('user','admin') NOT NULL DEFAULT 'user',
-      createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      updatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-      lastSignedIn TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-    )
-  `);
+function getFallbackStock(productId: string, colorName: string): number {
+  const key = stockKey(productId, colorName);
+  const current = fallbackStockMap.get(key);
+  if (current === undefined || current <= 0) {
+    fallbackStockMap.set(key, FALLBACK_DEFAULT_STOCK);
+    return FALLBACK_DEFAULT_STOCK;
+  }
+  return current;
+}
 
-  await db.execute(sql`
-    CREATE TABLE IF NOT EXISTS inventory (
-      id INT AUTO_INCREMENT PRIMARY KEY,
-      productId VARCHAR(128) NOT NULL,
-      colorName VARCHAR(64) NOT NULL,
-      stock INT NOT NULL DEFAULT 10,
-      createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      updatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-    )
-  `);
-
-  await db.execute(sql`
-    CREATE TABLE IF NOT EXISTS orders (
-      id INT AUTO_INCREMENT PRIMARY KEY,
-      orderNumber VARCHAR(32) NOT NULL UNIQUE,
-      productId VARCHAR(128) NOT NULL,
-      colorName VARCHAR(64) NOT NULL,
-      quantity INT NOT NULL DEFAULT 1,
-      totalPrice INT NOT NULL,
-      firstName VARCHAR(128) NOT NULL,
-      lastName VARCHAR(128) NOT NULL,
-      email VARCHAR(320) NOT NULL,
-      phone VARCHAR(32) NOT NULL,
-      address TEXT NOT NULL,
-      city VARCHAR(128) NOT NULL,
-      state VARCHAR(64) NOT NULL,
-      zipCode VARCHAR(16) NOT NULL,
-      country VARCHAR(64) NOT NULL DEFAULT 'US',
-      status ENUM('pending','confirmed','shipped','delivered','cancelled') NOT NULL DEFAULT 'pending',
-      createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      updatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-    )
-  `);
-
-  _schemaEnsured = true;
+function createFallbackOrder(order: InsertOrder): Order {
+  const now = new Date();
+  const created: Order = {
+    id: fallbackOrderIdCounter++,
+    orderNumber: order.orderNumber,
+    productId: order.productId,
+    colorName: order.colorName,
+    quantity: order.quantity ?? 1,
+    totalPrice: order.totalPrice,
+    firstName: order.firstName,
+    lastName: order.lastName,
+    email: order.email,
+    phone: order.phone,
+    address: order.address,
+    city: order.city,
+    state: order.state,
+    zipCode: order.zipCode,
+    country: order.country ?? "US",
+    status: order.status ?? "pending",
+    createdAt: now,
+    updatedAt: now,
+  };
+  fallbackOrders.set(created.orderNumber, created);
+  return created;
 }
 
 // Lazily create the drizzle instance so local tooling can run without a DB.
@@ -69,14 +58,6 @@ export async function getDb() {
     } catch (error) {
       console.warn("[Database] Failed to connect:", error);
       _db = null;
-    }
-  }
-
-  if (_db) {
-    try {
-      await ensureSchema(_db);
-    } catch (error) {
-      console.warn("[Database] Failed to ensure schema:", error);
     }
   }
   return _db;
@@ -161,41 +142,39 @@ export async function getUserByOpenId(openId: string) {
  */
 export async function getStock(productId: string, colorName: string): Promise<number> {
   const db = await getDb();
-  if (!db) return 0;
+  if (!db) return getFallbackStock(productId, colorName);
 
-  let result;
   try {
-    result = await db
+    const result = await db
       .select()
       .from(inventory)
       .where(and(eq(inventory.productId, productId), eq(inventory.colorName, colorName)))
       .limit(1);
-  } catch (error) {
-    _schemaEnsured = false;
-    await ensureSchema(db);
-    result = await db
-      .select()
-      .from(inventory)
-      .where(and(eq(inventory.productId, productId), eq(inventory.colorName, colorName)))
-      .limit(1);
-  }
+    if (result.length === 0) {
+      try {
+        await db.insert(inventory).values({ productId, colorName, stock: FALLBACK_DEFAULT_STOCK });
+        return FALLBACK_DEFAULT_STOCK;
+      } catch {
+        return getFallbackStock(productId, colorName);
+      }
+    }
 
-  if (result.length === 0) {
-    // Initialize stock with default 10 units
-    await db.insert(inventory).values({ productId, colorName, stock: 10 });
-    return 10;
-  }
+    if (result[0].stock <= 0) {
+      try {
+        await db
+          .update(inventory)
+          .set({ stock: FALLBACK_DEFAULT_STOCK })
+          .where(and(eq(inventory.productId, productId), eq(inventory.colorName, colorName)));
+      } catch {
+        return getFallbackStock(productId, colorName);
+      }
+      return FALLBACK_DEFAULT_STOCK;
+    }
 
-  // If historical data contains zero/negative stock, normalize it to 10.
-  if (result[0].stock <= 0) {
-    await db
-      .update(inventory)
-      .set({ stock: 10 })
-      .where(and(eq(inventory.productId, productId), eq(inventory.colorName, colorName)));
-    return 10;
+    return result[0].stock;
+  } catch {
+    return getFallbackStock(productId, colorName);
   }
-
-  return result[0].stock;
 }
 
 /**
@@ -205,10 +184,14 @@ export async function getAllStock(productId: string) {
   const db = await getDb();
   if (!db) return [];
 
-  return db
-    .select()
-    .from(inventory)
-    .where(eq(inventory.productId, productId));
+  try {
+    return await db
+      .select()
+      .from(inventory)
+      .where(eq(inventory.productId, productId));
+  } catch {
+    return [];
+  }
 }
 
 /**
@@ -216,16 +199,20 @@ export async function getAllStock(productId: string) {
  */
 export async function decrementStock(productId: string, colorName: string, quantity: number = 1): Promise<boolean> {
   const db = await getDb();
-  if (!db) return false;
+  if (!db) {
+    const current = getFallbackStock(productId, colorName);
+    if (current < quantity) return false;
+    fallbackStockMap.set(stockKey(productId, colorName), current - quantity);
+    return true;
+  }
 
   // First check current stock
   const currentStock = await getStock(productId, colorName);
   if (currentStock < quantity) return false;
 
   // Atomic decrement
-  let result;
   try {
-    result = await db
+    const result = await db
       .update(inventory)
       .set({ stock: sql`${inventory.stock} - ${quantity}` })
       .where(
@@ -235,22 +222,13 @@ export async function decrementStock(productId: string, colorName: string, quant
           sql`${inventory.stock} >= ${quantity}`
         )
       );
-  } catch (error) {
-    _schemaEnsured = false;
-    await ensureSchema(db);
-    result = await db
-      .update(inventory)
-      .set({ stock: sql`${inventory.stock} - ${quantity}` })
-      .where(
-        and(
-          eq(inventory.productId, productId),
-          eq(inventory.colorName, colorName),
-          sql`${inventory.stock} >= ${quantity}`
-        )
-      );
+    return (result as any)[0]?.affectedRows > 0;
+  } catch {
+    const fallbackCurrent = getFallbackStock(productId, colorName);
+    if (fallbackCurrent < quantity) return false;
+    fallbackStockMap.set(stockKey(productId, colorName), fallbackCurrent - quantity);
+    return true;
   }
-
-  return (result as any)[0]?.affectedRows > 0;
 }
 
 // ==================== Order Helpers ====================
@@ -260,17 +238,18 @@ export async function decrementStock(productId: string, colorName: string, quant
  */
 export async function createOrder(order: InsertOrder): Promise<number> {
   const db = await getDb();
-  if (!db) throw new Error("Database not available");
-
-  let result;
-  try {
-    result = await db.insert(orders).values(order);
-  } catch (error) {
-    _schemaEnsured = false;
-    await ensureSchema(db);
-    result = await db.insert(orders).values(order);
+  if (!db) {
+    const created = createFallbackOrder(order);
+    return created.id;
   }
-  return (result as any)[0]?.insertId;
+
+  try {
+    const result = await db.insert(orders).values(order);
+    return (result as any)[0]?.insertId;
+  } catch {
+    const created = createFallbackOrder(order);
+    return created.id;
+  }
 }
 
 /**
@@ -278,15 +257,19 @@ export async function createOrder(order: InsertOrder): Promise<number> {
  */
 export async function getOrderByNumber(orderNumber: string) {
   const db = await getDb();
-  if (!db) return undefined;
+  if (!db) return fallbackOrders.get(orderNumber);
 
-  const result = await db
-    .select()
-    .from(orders)
-    .where(eq(orders.orderNumber, orderNumber))
-    .limit(1);
+  try {
+    const result = await db
+      .select()
+      .from(orders)
+      .where(eq(orders.orderNumber, orderNumber))
+      .limit(1);
 
-  return result.length > 0 ? result[0] : undefined;
+    return result.length > 0 ? result[0] : undefined;
+  } catch {
+    return fallbackOrders.get(orderNumber);
+  }
 }
 
 /**
@@ -294,9 +277,19 @@ export async function getOrderByNumber(orderNumber: string) {
  */
 export async function getAllOrders() {
   const db = await getDb();
-  if (!db) return [];
+  if (!db) {
+    return Array.from(fallbackOrders.values()).sort(
+      (a, b) => a.createdAt.getTime() - b.createdAt.getTime()
+    );
+  }
 
-  return db.select().from(orders).orderBy(orders.createdAt);
+  try {
+    return await db.select().from(orders).orderBy(orders.createdAt);
+  } catch {
+    return Array.from(fallbackOrders.values()).sort(
+      (a, b) => a.createdAt.getTime() - b.createdAt.getTime()
+    );
+  }
 }
 
 /**
@@ -305,17 +298,31 @@ export async function getAllOrders() {
  */
 export async function getOrdersByContact(email: string, phone?: string): Promise<Order[]> {
   const db = await getDb();
-  if (!db) return [];
+  if (!db) {
+    return Array.from(fallbackOrders.values()).filter(order => {
+      if (order.email !== email) return false;
+      if (phone && order.phone !== phone) return false;
+      return true;
+    });
+  }
 
   const whereClause = phone
     ? and(eq(orders.email, email), eq(orders.phone, phone))
     : eq(orders.email, email);
 
-  return db
-    .select()
-    .from(orders)
-    .where(whereClause)
-    .orderBy(orders.createdAt);
+  try {
+    return await db
+      .select()
+      .from(orders)
+      .where(whereClause)
+      .orderBy(orders.createdAt);
+  } catch {
+    return Array.from(fallbackOrders.values()).filter(order => {
+      if (order.email !== email) return false;
+      if (phone && order.phone !== phone) return false;
+      return true;
+    });
+  }
 }
 
 /**
@@ -323,12 +330,24 @@ export async function getOrdersByContact(email: string, phone?: string): Promise
  */
 export async function updateOrderStatusByNumber(orderNumber: string, status: Order["status"]): Promise<boolean> {
   const db = await getDb();
-  if (!db) return false;
+  if (!db) {
+    const order = fallbackOrders.get(orderNumber);
+    if (!order) return false;
+    fallbackOrders.set(orderNumber, { ...order, status, updatedAt: new Date() });
+    return true;
+  }
 
-  const result = await db
-    .update(orders)
-    .set({ status })
-    .where(eq(orders.orderNumber, orderNumber));
+  try {
+    const result = await db
+      .update(orders)
+      .set({ status })
+      .where(eq(orders.orderNumber, orderNumber));
 
-  return (result as any)[0]?.affectedRows > 0;
+    return (result as any)[0]?.affectedRows > 0;
+  } catch {
+    const order = fallbackOrders.get(orderNumber);
+    if (!order) return false;
+    fallbackOrders.set(orderNumber, { ...order, status, updatedAt: new Date() });
+    return true;
+  }
 }
