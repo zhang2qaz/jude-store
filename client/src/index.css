@@ -1,6 +1,5 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@import url("https://fonts.googleapis.com/css2?family=Michroma&display=swap");
 
 @custom-variant dark (&:is(.dark *));
 
@@ -9,7 +8,7 @@
  * =============================
  * Design Philosophy: Warm, vibrant, NYC-inspired. Soft serif + clean sans-serif.
  * Color Palette: Olive/Chartreuse, Vermillion Red, Warm Cream, Cornflower Blue, Orange, Salmon
- * Typography: Michroma (display/logo), DM Sans (body), DM Mono (accents)
+ * Typography: Noto Serif Display (display/logo), DM Sans (body), DM Mono (accents)
  * Tagline: "your life, styled"
  */
 
@@ -61,7 +60,7 @@
   --color-jude-dark: #1E1E1E;
   --color-jude-green-light: #8DB580;
 
-  --font-display: 'Michroma', 'DM Sans', system-ui, sans-serif;
+  --font-display: 'Noto Serif Display', Georgia, serif;
   --font-body: 'DM Sans', system-ui, sans-serif;
   --font-mono: 'DM Mono', monospace;
 }

@@ -18,65 +18,52 @@ export default function Home() {
     <div className="min-h-screen flex flex-col bg-[#F5EDE0]">
       <Header />
 
-      {/* Hero Section — Phase 2 minimal editorial style */}
-      <section className="relative overflow-hidden bg-[#ECE9E7]">
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
-          <p className="font-display text-[20vw] leading-none text-white/70 tracking-[-0.04em]">
-            graffiti
-          </p>
-        </div>
-        <div className="container relative z-10 py-16 md:py-24 lg:py-28 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="mb-10 md:mb-14"
-          >
-            <p className="font-display lowercase text-[clamp(1.35rem,3.2vw,3rem)] text-[#1E1E1E]/82 tracking-[0.02em] leading-[1.45]">
-              refrigerators, washers, and dryers
-            </p>
-            <p className="font-display lowercase text-[clamp(1.35rem,3.2vw,3rem)] text-[#C87854] tracking-[0.05em] leading-[1.55] mt-1">
-              designed for{" "}
-              <span className="underline decoration-[#C87854]/70 underline-offset-6">your actual life</span>
-            </p>
-          </motion.div>
+      {/* Hero Section — Olive Green background with large serif tagline */}
+      <section className="relative bg-[#A3A800] overflow-hidden grain-overlay">
+        <div className="container relative z-10 py-20 md:py-32 lg:py-40">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Left: Tagline */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+            >
+              <p className="font-mono-brand text-xs tracking-[0.3em] uppercase text-[#1E1E1E]/60 mb-6">
+                Premium Appliances
+              </p>
+              <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-medium leading-[0.95] mb-8">
+                <span className="text-[#4A3520]">your </span>
+                <span className="text-[#D4917F]">life, </span>
+                <br />
+                <span className="text-[#F5EDE0]">styled</span>
+              </h1>
+              <p className="font-body text-base md:text-lg text-[#1E1E1E]/70 max-w-md mb-10 leading-relaxed">
+                Inspired by the bold individuality of New York City, jude designs appliances
+                that celebrate personalization and joy.
+              </p>
+              <Link href="/product">
+                <span className="jude-btn-primary">
+                  Shop Now <ArrowRight size={16} />
+                </span>
+              </Link>
+            </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
-          >
-            <p className="font-display text-3xl md:text-4xl text-[#1E1E1E] mb-2">jude</p>
-            <p className="font-body text-xs tracking-[0.25em] uppercase text-[#6B6358] mb-10">
-              Premium Lifestyle Appliance
-            </p>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.15, ease: "easeOut" }}
-            className="max-w-md mx-auto mb-10"
-          >
-            <img
-              src={PRODUCT.colors[4].image}
-              alt="jude Summer 2026 Edition"
-              className="w-full h-auto object-contain drop-shadow-[0_16px_28px_rgba(0,0,0,0.25)]"
-            />
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.28, ease: "easeOut" }}
-          >
-            <p className="font-display text-5xl md:text-6xl text-[#1E1E1E] mb-8">summer 2026</p>
-            <Link href="/product">
-              <span className="jude-btn-outline">
-                Explore Collection <ArrowRight size={16} />
-              </span>
-            </Link>
-          </motion.div>
+            {/* Right: Product Image */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+              className="relative"
+            >
+              <div className="bg-[#F5EDE0] rounded-lg p-6 md:p-10 shadow-2xl jude-hover-card">
+                <img
+                  src={PRODUCT.heroImage}
+                  alt="jude French 4-Door Retro Refrigerator"
+                  className="w-full h-auto object-contain max-h-[500px] transition-transform duration-500 hover:scale-[1.02]"
+                />
+              </div>
+            </motion.div>
+          </div>
         </div>
       </section>
 
