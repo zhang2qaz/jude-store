@@ -13,6 +13,7 @@ import OrderConfirmation from "./pages/OrderConfirmation";
 import AdminOrdersPage from "./pages/AdminOrdersPage";
 import OrdersPage from "./pages/OrdersPage";
 import OwnerOrdersPage from "./pages/OwnerOrdersPage";
+import DeliveryInfoPage from "./pages/DeliveryInfoPage";
 function Router() {
   // make sure to consider if you need authentication for certain routes
   return (
@@ -22,6 +23,7 @@ function Router() {
       <Route path={"/cart"} component={CartPage} />
       <Route path={"/checkout"} component={CheckoutPage} />
       <Route path={"/orders"} component={OrdersPage} />
+      <Route path={"/delivery-installation"} component={DeliveryInfoPage} />
       <Route path={"/order-confirmation"} component={OrderConfirmation} />
       <Route path={"/admin"} component={AdminOrdersPage} />
       <Route path={"/admin/orders"} component={AdminOrdersPage} />

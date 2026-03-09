@@ -176,6 +176,56 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Delivery & Installation Support */}
+      <section className="bg-[#FFFBF5] border-y border-[#D9CFC2]">
+        <div className="container py-16 md:py-20">
+          <div className="grid lg:grid-cols-2 gap-8 items-center">
+            <div>
+              <p className="font-mono-brand text-xs tracking-[0.3em] uppercase text-[#A3A800] mb-4">
+                Delivery Clarity
+              </p>
+              <h2 className="font-display text-3xl md:text-4xl text-[#1E1E1E] mb-4">
+                Planning a NYC apartment delivery?
+              </h2>
+              <p className="font-body text-sm md:text-base text-[#6B6358] leading-relaxed max-w-xl">
+                Review white-glove expectations, installation preparation, and measurement reminders
+                before checkout. Built to reduce surprises for apartment, townhouse, and managed-building
+                deliveries.
+              </p>
+            </div>
+            <div className="grid sm:grid-cols-2 gap-3">
+              <div className="bg-[#F5EDE0] border border-[#D9CFC2] rounded-lg p-4">
+                <p className="font-mono-brand text-[10px] tracking-widest uppercase text-[#6B6358] mb-1">
+                  Before Delivery
+                </p>
+                <p className="font-body text-sm text-[#1E1E1E]">Measure entry path, turns, and elevator depth.</p>
+              </div>
+              <div className="bg-[#F5EDE0] border border-[#D9CFC2] rounded-lg p-4">
+                <p className="font-mono-brand text-[10px] tracking-widest uppercase text-[#6B6358] mb-1">
+                  Building Access
+                </p>
+                <p className="font-body text-sm text-[#1E1E1E]">Confirm service windows, loading dock, and approvals.</p>
+              </div>
+              <div className="bg-[#F5EDE0] border border-[#D9CFC2] rounded-lg p-4 sm:col-span-2">
+                <p className="font-mono-brand text-[10px] tracking-widest uppercase text-[#6B6358] mb-1">
+                  White-Glove Support
+                </p>
+                <p className="font-body text-sm text-[#1E1E1E]">
+                  In-home placement, unboxing, and setup guidance with optional haul-away support.
+                </p>
+              </div>
+              <div className="sm:col-span-2">
+                <Link href="/delivery-installation">
+                  <span className="jude-btn-outline border-[#1E1E1E] text-[#1E1E1E] hover:bg-[#1E1E1E] hover:text-[#F5EDE0] w-full justify-center">
+                    View Delivery & Installation Guide <ArrowRight size={16} />
+                  </span>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section — Orange gradient */}
       <section className="bg-gradient-to-r from-[#A3A800] to-[#D93A1D] grain-overlay">
         <div className="container relative z-10 py-20 md:py-28 text-center">

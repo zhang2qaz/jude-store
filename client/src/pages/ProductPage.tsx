@@ -290,6 +290,11 @@ export default function ProductPage() {
                   <p className="font-body text-sm text-[#1E1E1E]">
                     White-glove delivery available in major U.S. metro areas with optional in-home setup.
                   </p>
+                  <Link href="/delivery-installation">
+                    <span className="inline-flex items-center gap-2 mt-2 font-mono-brand text-[10px] tracking-widest uppercase text-[#D93A1D] hover:text-[#C0311A] transition-colors">
+                      View Delivery Guide <ArrowLeft size={12} className="rotate-180" />
+                    </span>
+                  </Link>
                 </div>
                 <div>
                   <p className="font-mono-brand text-[10px] tracking-widest uppercase text-[#6B6358] mb-1">
@@ -311,6 +316,15 @@ export default function ProductPage() {
                       order support
                     </a>
                     .
+                  </p>
+                </div>
+                <div>
+                  <p className="font-mono-brand text-[10px] tracking-widest uppercase text-[#6B6358] mb-1">
+                    Measurement Reminder
+                  </p>
+                  <p className="font-body text-sm text-[#1E1E1E]">
+                    Before checkout, confirm doorway and hallway width, turning points, and elevator
+                    clearance for your selected placement path.
                   </p>
                 </div>
               </div>

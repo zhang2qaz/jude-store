@@ -61,6 +61,12 @@ export default function Footer() {
               >
                 Order Help
               </a>
+              <a
+                href="/delivery-installation"
+                className="block font-body text-sm text-[#9B9488] hover:text-[#F5EDE0] transition-colors"
+              >
+                Delivery & Installation Guide
+              </a>
             </div>
           </div>
         </div>
