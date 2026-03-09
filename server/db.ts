@@ -163,11 +163,22 @@ export async function getStock(productId: string, colorName: string): Promise<nu
   const db = await getDb();
   if (!db) return 0;
 
-  const result = await db
-    .select()
-    .from(inventory)
-    .where(and(eq(inventory.productId, productId), eq(inventory.colorName, colorName)))
-    .limit(1);
+  let result;
+  try {
+    result = await db
+      .select()
+      .from(inventory)
+      .where(and(eq(inventory.productId, productId), eq(inventory.colorName, colorName)))
+      .limit(1);
+  } catch (error) {
+    _schemaEnsured = false;
+    await ensureSchema(db);
+    result = await db
+      .select()
+      .from(inventory)
+      .where(and(eq(inventory.productId, productId), eq(inventory.colorName, colorName)))
+      .limit(1);
+  }
 
   if (result.length === 0) {
     // Initialize stock with default 10 units
@@ -212,16 +223,32 @@ export async function decrementStock(productId: string, colorName: string, quant
   if (currentStock < quantity) return false;
 
   // Atomic decrement
-  const result = await db
-    .update(inventory)
-    .set({ stock: sql`${inventory.stock} - ${quantity}` })
-    .where(
-      and(
-        eq(inventory.productId, productId),
-        eq(inventory.colorName, colorName),
-        sql`${inventory.stock} >= ${quantity}`
-      )
-    );
+  let result;
+  try {
+    result = await db
+      .update(inventory)
+      .set({ stock: sql`${inventory.stock} - ${quantity}` })
+      .where(
+        and(
+          eq(inventory.productId, productId),
+          eq(inventory.colorName, colorName),
+          sql`${inventory.stock} >= ${quantity}`
+        )
+      );
+  } catch (error) {
+    _schemaEnsured = false;
+    await ensureSchema(db);
+    result = await db
+      .update(inventory)
+      .set({ stock: sql`${inventory.stock} - ${quantity}` })
+      .where(
+        and(
+          eq(inventory.productId, productId),
+          eq(inventory.colorName, colorName),
+          sql`${inventory.stock} >= ${quantity}`
+        )
+      );
+  }
 
   return (result as any)[0]?.affectedRows > 0;
 }
@@ -235,7 +262,14 @@ export async function createOrder(order: InsertOrder): Promise<number> {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
 
-  const result = await db.insert(orders).values(order);
+  let result;
+  try {
+    result = await db.insert(orders).values(order);
+  } catch (error) {
+    _schemaEnsured = false;
+    await ensureSchema(db);
+    result = await db.insert(orders).values(order);
+  }
   return (result as any)[0]?.insertId;
 }
 
