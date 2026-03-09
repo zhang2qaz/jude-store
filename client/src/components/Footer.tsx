@@ -40,7 +40,7 @@ export default function Footer() {
               <a href="/orders" className="font-body text-sm text-[#9B9488] hover:text-[#F5EDE0] transition-colors">
                 Track Existing Order
               </a>
-              <a href="/support#faq" className="font-body text-sm text-[#9B9488] hover:text-[#F5EDE0] transition-colors">
+              <a href="/faq" className="font-body text-sm text-[#9B9488] hover:text-[#F5EDE0] transition-colors">
                 FAQ
               </a>
               <a href="/support#contact" className="font-body text-sm text-[#9B9488] hover:text-[#F5EDE0] transition-colors">

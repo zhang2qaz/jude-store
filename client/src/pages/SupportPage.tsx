@@ -3,25 +3,6 @@ import { ArrowLeft, ArrowRight, ShieldCheck, CircleHelp, Mail } from "lucide-rea
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
-const FAQS = [
-  {
-    q: "How long does delivery usually take?",
-    a: "Most metro deliveries are completed in 7-14 business days after order review.",
-  },
-  {
-    q: "Do you provide white-glove delivery?",
-    a: "Yes. White-glove delivery includes in-home placement and packaging removal in supported regions.",
-  },
-  {
-    q: "What does the warranty cover?",
-    a: "The 5-year limited warranty covers manufacturing defects in key components under normal residential use.",
-  },
-  {
-    q: "How do I track or update my order?",
-    a: "Use the order tracking page with your email, or contact support for delivery and scheduling help.",
-  },
-];
-
 export default function SupportPage() {
   return (
     <div className="min-h-screen flex flex-col bg-[#F5EDE0]">
@@ -52,7 +33,7 @@ export default function SupportPage() {
               <p className="font-mono-brand text-[10px] tracking-widest uppercase text-[#6B6358] mb-1">Warranty</p>
               <p className="font-body text-sm text-[#1E1E1E]">5-year limited coverage overview.</p>
             </a>
-            <a href="#faq" className="bg-[#FFFBF5] border border-[#D9CFC2] rounded-lg p-5 block hover:border-[#A3A800] transition-colors">
+            <a href="/faq" className="bg-[#FFFBF5] border border-[#D9CFC2] rounded-lg p-5 block hover:border-[#A3A800] transition-colors">
               <CircleHelp size={20} className="text-[#A3A800] mb-3" />
               <p className="font-mono-brand text-[10px] tracking-widest uppercase text-[#6B6358] mb-1">FAQ</p>
               <p className="font-body text-sm text-[#1E1E1E]">Fast answers to common buyer questions.</p>
@@ -81,15 +62,18 @@ export default function SupportPage() {
           </div>
         </section>
 
-        <section id="faq" className="container py-14 md:py-16">
-          <h2 className="font-display text-3xl text-[#1E1E1E] mb-6">FAQ</h2>
-          <div className="space-y-4">
-            {FAQS.map((item) => (
-              <div key={item.q} className="bg-[#FFFBF5] border border-[#D9CFC2] rounded-lg p-5">
-                <h3 className="font-display text-2xl text-[#1E1E1E] mb-2">{item.q}</h3>
-                <p className="font-body text-sm text-[#6B6358] leading-relaxed">{item.a}</p>
-              </div>
-            ))}
+        <section className="container py-14 md:py-16">
+          <div className="bg-[#FFFBF5] border border-[#D9CFC2] rounded-lg p-6">
+            <h2 className="font-display text-3xl text-[#1E1E1E] mb-3">Structured FAQ</h2>
+            <p className="font-body text-sm text-[#6B6358] leading-relaxed mb-4 max-w-3xl">
+              Visit the dedicated FAQ for detailed pre-purchase guidance on product basics, fit and
+              dimensions, delivery, installation, warranty, support, returns, and preorder topics.
+            </p>
+            <Link href="/faq">
+              <span className="jude-btn-outline border-[#1E1E1E] text-[#1E1E1E] hover:bg-[#1E1E1E] hover:text-[#F5EDE0]">
+                Open Full FAQ
+              </span>
+            </Link>
           </div>
         </section>
 

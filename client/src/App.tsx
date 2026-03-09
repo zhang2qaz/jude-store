@@ -17,6 +17,7 @@ import DeliveryInfoPage from "./pages/DeliveryInfoPage";
 import AboutPage from "./pages/AboutPage";
 import SupportPage from "./pages/SupportPage";
 import PoliciesPage from "./pages/PoliciesPage";
+import FaqPage from "./pages/FaqPage";
 function Router() {
   // make sure to consider if you need authentication for certain routes
   return (
@@ -30,6 +31,7 @@ function Router() {
       <Route path={"/delivery-installation"} component={DeliveryInfoPage} />
       <Route path={"/support"} component={SupportPage} />
       <Route path={"/policies"} component={PoliciesPage} />
+      <Route path={"/faq"} component={FaqPage} />
       <Route path={"/order-confirmation"} component={OrderConfirmation} />
       <Route path={"/admin"} component={AdminOrdersPage} />
       <Route path={"/admin/orders"} component={AdminOrdersPage} />

@@ -30,7 +30,7 @@ export default function Header() {
             Free Shipping · Premium Support · Limited Color Drop
           </p>
           <div className="hidden md:flex items-center gap-5">
-            <a href="/support#faq" className="font-mono-brand text-[10px] tracking-widest uppercase text-[#F5EDE0]/70 hover:text-[#F5EDE0] transition-colors">
+            <a href="/faq" className="font-mono-brand text-[10px] tracking-widest uppercase text-[#F5EDE0]/70 hover:text-[#F5EDE0] transition-colors">
               FAQ
             </a>
             <a href="mailto:support@jude.homes" className="font-mono-brand text-[10px] tracking-widest uppercase text-[#F5EDE0]/70 hover:text-[#F5EDE0] transition-colors">
