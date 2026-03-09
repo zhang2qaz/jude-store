@@ -34,6 +34,7 @@ const menuItems = [
 ];
 
 const SIDEBAR_WIDTH_KEY = "sidebar-width";
+const OWNER_KEY_STORAGE = "owner-dashboard-key";
 const DEFAULT_WIDTH = 280;
 const MIN_WIDTH = 200;
 const MAX_WIDTH = 480;
@@ -47,6 +48,10 @@ export default function DashboardLayout({
     const saved = localStorage.getItem(SIDEBAR_WIDTH_KEY);
     return saved ? parseInt(saved, 10) : DEFAULT_WIDTH;
   });
+  const [ownerKeyInput, setOwnerKeyInput] = useState("");
+  const [ownerKeyMode, setOwnerKeyMode] = useState(() =>
+    Boolean(localStorage.getItem(OWNER_KEY_STORAGE))
+  );
   const { loading, user } = useAuth();
 
   useEffect(() => {
@@ -57,11 +62,11 @@ export default function DashboardLayout({
     return <DashboardLayoutSkeleton />
   }
 
-  if (!user) {
+  if (!user && !ownerKeyMode) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <div className="flex flex-col items-center gap-8 p-8 max-w-md w-full">
-          <div className="flex flex-col items-center gap-6">
+        <div className="flex flex-col items-center gap-6 p-8 max-w-md w-full">
+          <div className="flex flex-col items-center gap-4">
             <h1 className="text-2xl font-semibold tracking-tight text-center">
               Sign in to continue
             </h1>
@@ -69,6 +74,26 @@ export default function DashboardLayout({
               Access to this dashboard requires authentication. Continue to launch the login flow.
             </p>
           </div>
+          <input
+            value={ownerKeyInput}
+            onChange={e => setOwnerKeyInput(e.target.value)}
+            placeholder="Or enter OWNER_DASHBOARD_KEY"
+            className="h-11 w-full rounded border bg-background px-3 text-sm"
+          />
+          <Button
+            onClick={() => {
+              const normalized = ownerKeyInput.trim();
+              if (!normalized) return;
+              localStorage.setItem(OWNER_KEY_STORAGE, normalized);
+              setOwnerKeyMode(true);
+              window.location.reload();
+            }}
+            variant="outline"
+            size="lg"
+            className="w-full"
+          >
+            Enter with Owner Key
+          </Button>
           <Button
             onClick={() => {
               window.location.href = getLoginUrl();
@@ -222,6 +247,17 @@ function DashboardLayoutContent({
                 </button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-48">
+                {!user && (
+                  <DropdownMenuItem
+                    onClick={() => {
+                      localStorage.removeItem(OWNER_KEY_STORAGE);
+                      window.location.reload();
+                    }}
+                    className="cursor-pointer"
+                  >
+                    <span>Exit Owner Key Mode</span>
+                  </DropdownMenuItem>
+                )}
                 <DropdownMenuItem
                   onClick={logout}
                   className="cursor-pointer text-destructive focus:text-destructive"

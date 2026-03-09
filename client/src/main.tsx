@@ -9,6 +9,7 @@ import { getLoginUrl } from "./const";
 import "./index.css";
 
 const queryClient = new QueryClient();
+const OWNER_KEY_STORAGE = "owner-dashboard-key";
 
 const redirectToLoginIfUnauthorized = (error: unknown) => {
   if (!(error instanceof TRPCClientError)) return;
@@ -43,8 +44,16 @@ const trpcClient = trpc.createClient({
       url: "/api/trpc",
       transformer: superjson,
       fetch(input, init) {
+        const headers = new Headers(init?.headers);
+        const ownerKey =
+          typeof window !== "undefined" ? localStorage.getItem(OWNER_KEY_STORAGE) : null;
+        if (ownerKey) {
+          headers.set("x-owner-dashboard-key", ownerKey);
+        }
+
         return globalThis.fetch(input, {
           ...(init ?? {}),
+          headers,
           credentials: "include",
         });
       },
