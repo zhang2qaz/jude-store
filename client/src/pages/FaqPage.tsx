@@ -40,19 +40,23 @@ const FAQ_GROUPS = [
     items: [
       {
         q: "How long does delivery usually take?",
-        a: "Most U.S. metro deliveries are completed in 7-14 business days after order review and scheduling confirmation.",
+        a: "Most U.S. metro deliveries are completed in 7-14 business days after order review and scheduling confirmation. In NYC, building elevator availability can affect final slot timing.",
       },
       {
         q: "Is white-glove delivery available?",
-        a: "Yes. White-glove delivery includes in-home placement and packaging removal in supported regions.",
+        a: "Yes. White-glove delivery includes in-home placement and packaging removal in supported regions. Haul-away can be requested during scheduling.",
       },
       {
         q: "What should apartment or townhouse buyers prepare?",
-        a: "Reserve service elevators or loading access if required, confirm building delivery windows, and ensure an adult is present to receive delivery.",
+        a: "Reserve service elevators or loading access if required, confirm building delivery windows, verify door/elevator clearance, and ensure an adult is present to receive delivery.",
       },
       {
         q: "Do you provide installation help?",
         a: "We provide setup guidance and placement recommendations. Confirm electrical readiness and site clearance before your appointment.",
+      },
+      {
+        q: "Who coordinates with building management in NYC?",
+        a: "jude coordinates delivery scheduling and crew dispatch. Customers provide building contacts and booking rules, and building management confirms elevator/loading permissions.",
       },
     ],
   },

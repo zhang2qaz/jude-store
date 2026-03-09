@@ -8,17 +8,17 @@ const STEPS = [
   {
     title: "Order Review (within 24 hours)",
     detail:
-      "Our support team confirms your color, address, and preferred delivery window. For apartment buildings, we also confirm elevator and service-hour requirements.",
+      "Our delivery coordinator confirms your address type (apartment, condo, townhouse), building rules, and preferred delivery window before scheduling.",
   },
   {
     title: "Pre-Delivery Check (2-5 days before)",
     detail:
-      "You receive a reminder to verify doorway, hallway, and stair clearance. If needed, we help coordinate building access and loading-zone timing.",
+      "You receive a clearance checklist for doorway, hallway, turns, and elevator dimensions. We align with building management on service elevator and loading dock timing where required.",
   },
   {
     title: "Delivery Day",
     detail:
-      "White-glove teams deliver, position, and unbox your appliance. Optional haul-away and placement guidance are available at appointment confirmation.",
+      "White-glove crews deliver, place, and unbox the unit in your kitchen zone. Optional haul-away and final placement confirmation are handled during the appointment.",
   },
 ];
 
@@ -26,7 +26,7 @@ export default function DeliveryInfoPage() {
   usePageMeta({
     title: "Delivery & Installation Guide | jude",
     description:
-      "Review jude delivery timelines, white-glove handling, installation preparation, and apartment/building-access checklist before ordering.",
+      "Review NYC-focused delivery and installation planning, including elevator booking, door clearance, white-glove service, haul-away options, and coordination roles.",
   });
 
   return (
@@ -47,12 +47,12 @@ export default function DeliveryInfoPage() {
             Delivery & Installation
           </p>
           <h1 className="font-display text-4xl md:text-5xl text-[#1E1E1E] mb-5">
-            Know exactly what happens after checkout.
+            NYC-focused delivery and installation, clearly explained.
           </h1>
           <p className="font-body text-sm md:text-base text-[#6B6358] max-w-3xl leading-relaxed">
-            Built for New York and U.S. high-consideration appliance buyers. This guide clarifies
-            delivery expectations, white-glove handling, and installation preparation before your order
-            arrives.
+            Built for New York apartment, condo, and townhouse buyers. This guide covers service-elevator
+            booking, door clearance checks, white-glove handling, installation prep, haul-away, and who
+            coordinates each step.
           </p>
         </section>
 
@@ -61,9 +61,12 @@ export default function DeliveryInfoPage() {
             <div className="bg-[#FFFBF5] border border-[#D9CFC2] rounded-lg p-5">
               <Truck size={20} className="text-[#A3A800] mb-3" />
               <p className="font-mono-brand text-[10px] tracking-widest uppercase text-[#6B6358] mb-2">
-                Delivery expectation
+                NYC delivery expectation
               </p>
-              <p className="font-body text-sm text-[#1E1E1E]">Estimated 7-14 business days in most U.S. metro areas.</p>
+              <p className="font-body text-sm text-[#1E1E1E]">
+                Typical window is 7-14 business days after order review, subject to building booking
+                constraints.
+              </p>
             </div>
             <div className="bg-[#FFFBF5] border border-[#D9CFC2] rounded-lg p-5">
               <CheckCircle2 size={20} className="text-[#A3A800] mb-3" />
@@ -71,17 +74,54 @@ export default function DeliveryInfoPage() {
                 White-glove support
               </p>
               <p className="font-body text-sm text-[#1E1E1E]">
-                In-home placement with packaging removal. Optional haul-away can be requested.
+                In-home placement and packaging removal are included. Haul-away can be requested during
+                scheduling confirmation.
               </p>
             </div>
             <div className="bg-[#FFFBF5] border border-[#D9CFC2] rounded-lg p-5">
               <Ruler size={20} className="text-[#A3A800] mb-3" />
               <p className="font-mono-brand text-[10px] tracking-widest uppercase text-[#6B6358] mb-2">
-                Measurement reminder
+                Door clearance reminder
               </p>
               <p className="font-body text-sm text-[#1E1E1E]">
-                Confirm doorway, hallway, elevator, and turn radius before scheduling.
+                Confirm clear width for entry door, corridor turns, and elevator interior before locking the
+                slot.
               </p>
+            </div>
+          </div>
+        </section>
+
+        <section className="container pb-12">
+          <div className="grid lg:grid-cols-3 gap-4">
+            <div className="bg-[#FFFBF5] border border-[#D9CFC2] rounded-lg p-5">
+              <p className="font-mono-brand text-[10px] tracking-widest uppercase text-[#6B6358] mb-2">
+                Who coordinates what
+              </p>
+              <ul className="space-y-2 font-body text-sm text-[#1E1E1E] leading-relaxed">
+                <li>- jude: delivery coordinator, route scheduling, crew dispatch.</li>
+                <li>- Customer: measurements, building contact, access approval.</li>
+                <li>- Building management: elevator/loader reservation and rules.</li>
+              </ul>
+            </div>
+            <div className="bg-[#FFFBF5] border border-[#D9CFC2] rounded-lg p-5">
+              <p className="font-mono-brand text-[10px] tracking-widest uppercase text-[#6B6358] mb-2">
+                Elevator & building booking
+              </p>
+              <ul className="space-y-2 font-body text-sm text-[#1E1E1E] leading-relaxed">
+                <li>- Confirm service-elevator size and available reservation window.</li>
+                <li>- Check COI or vendor paperwork requirements in advance.</li>
+                <li>- Confirm loading zone, check-in point, and move-in restrictions.</li>
+              </ul>
+            </div>
+            <div className="bg-[#FFFBF5] border border-[#D9CFC2] rounded-lg p-5">
+              <p className="font-mono-brand text-[10px] tracking-widest uppercase text-[#6B6358] mb-2">
+                Install prep & haul-away
+              </p>
+              <ul className="space-y-2 font-body text-sm text-[#1E1E1E] leading-relaxed">
+                <li>- Keep electrical outlet accessible before crew arrival.</li>
+                <li>- Clear path rugs/decor and secure pets for safe access.</li>
+                <li>- Request old-unit haul-away ahead of delivery day.</li>
+              </ul>
             </div>
           </div>
         </section>
@@ -109,10 +149,10 @@ export default function DeliveryInfoPage() {
                 Apartment & Townhouse Checklist
               </p>
               <ul className="space-y-3 font-body text-sm text-[#F5EDE0]/85">
-                <li>- Reserve elevator or loading dock if required by building management.</li>
-                <li>- Confirm service elevator dimensions and booking window.</li>
-                <li>- Measure all tight turns between entry and final kitchen location.</li>
-                <li>- Ensure an adult (18+) is present for delivery acceptance.</li>
+                <li>- Reserve service elevator and loading dock based on your building's process.</li>
+                <li>- Confirm all checkpoints: lobby door, corridor, elevator door, and unit entry door.</li>
+                <li>- Share building super/management contact when scheduling with jude support.</li>
+                <li>- Ensure an adult (18+) is present to authorize placement and completion.</li>
               </ul>
             </div>
             <div className="bg-[#FFFBF5] border border-[#D9CFC2] rounded-lg p-6">
@@ -120,10 +160,10 @@ export default function DeliveryInfoPage() {
                 Installation Preparation
               </p>
               <ul className="space-y-3 font-body text-sm text-[#1E1E1E]">
-                <li>- Confirm a grounded 120V / 60Hz outlet is available and accessible.</li>
-                <li>- Leave recommended rear/side/top clearance for ventilation.</li>
-                <li>- Clear fragile decor and rugs from the delivery path.</li>
-                <li>- Review final placement side (hinge opening and aisle flow).</li>
+                <li>- Confirm a grounded 120V / 60Hz outlet is available and reachable.</li>
+                <li>- Keep required rear/side/top clearance for ventilation and serviceability.</li>
+                <li>- Confirm final hinge and opening direction for your kitchen layout.</li>
+                <li>- If haul-away is needed, empty and defrost the old unit ahead of arrival.</li>
               </ul>
               <p className="font-body text-sm text-[#6B6358] mt-5">
                 Need help before ordering? Email{" "}
