@@ -76,12 +76,12 @@ export default function ProductPage() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.4 }}
-                className="bg-[#FFFBF5] rounded-lg border border-[#D9CFC2] p-8 md:p-12 aspect-square flex items-center justify-center mb-4 overflow-hidden"
+                className="bg-[#FFFBF5] rounded-lg border border-[#D9CFC2] p-8 md:p-12 aspect-square flex items-center justify-center mb-4 overflow-hidden jude-hover-card"
               >
                 <img
                   src={currentColor.image}
                   alt={`jude Refrigerator in ${currentColor.name}`}
-                  className="max-h-full max-w-full object-contain"
+                  className="max-h-full max-w-full object-contain transition-transform duration-500 hover:scale-[1.03]"
                 />
               </motion.div>
 
@@ -108,7 +108,7 @@ export default function ProductPage() {
             </div>
 
             {/* Right: Product Info */}
-            <div className="flex flex-col">
+            <div className="flex flex-col lg:sticky lg:top-28 h-fit">
               <p className="font-mono-brand text-xs tracking-[0.3em] uppercase text-[#A3A800] mb-3">
                 Premium Appliance
               </p>
@@ -199,7 +199,7 @@ export default function ProductPage() {
                     ? "bg-gray-400 text-white cursor-not-allowed"
                     : added
                     ? "bg-[#A3A800] text-[#F5EDE0]"
-                    : "bg-[#D93A1D] text-[#F5EDE0] hover:bg-[#C0311A]"
+                    : "bg-[#D93A1D] text-[#F5EDE0] hover:bg-[#C0311A] hover:-translate-y-0.5"
                 }`}
               >
                 {currentStock <= 0 ? (
@@ -226,7 +226,7 @@ export default function ProductPage() {
                 className={`w-full flex items-center justify-center gap-3 border-2 font-body text-sm tracking-wider uppercase py-4 transition-all mb-4 ${
                   currentStock <= 0
                     ? "border-gray-400 text-gray-400 cursor-not-allowed"
-                    : "border-[#1E1E1E] text-[#1E1E1E] hover:bg-[#1E1E1E] hover:text-[#F5EDE0]"
+                    : "border-[#1E1E1E] text-[#1E1E1E] hover:bg-[#1E1E1E] hover:text-[#F5EDE0] hover:-translate-y-0.5"
                 }`}
               >
                 Buy Now

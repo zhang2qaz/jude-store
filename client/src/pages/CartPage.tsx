@@ -63,7 +63,7 @@ export default function CartPage() {
               {items.map((item) => (
                 <div
                   key={item.id}
-                  className="bg-[#FFFBF5] border border-[#D9CFC2] rounded-lg p-6 flex gap-6"
+                  className="bg-[#FFFBF5] border border-[#D9CFC2] rounded-lg p-6 flex gap-6 jude-hover-card"
                 >
                   <div className="w-24 h-24 md:w-32 md:h-32 bg-[#F5EDE0] rounded flex items-center justify-center shrink-0">
                     <img
@@ -146,7 +146,7 @@ export default function CartPage() {
 
                 <button
                   onClick={() => navigate("/checkout")}
-                  className="w-full flex items-center justify-center gap-3 bg-[#D93A1D] text-[#F5EDE0] px-8 py-4 font-body text-sm tracking-wider uppercase hover:bg-[#C0311A] transition-colors"
+                  className="w-full flex items-center justify-center gap-3 bg-[#D93A1D] text-[#F5EDE0] px-8 py-4 font-body text-sm tracking-wider uppercase hover:bg-[#C0311A] transition-all duration-300 hover:-translate-y-0.5"
                 >
                   Proceed to Checkout <ArrowRight size={16} />
                 </button>

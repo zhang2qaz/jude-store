@@ -11,7 +11,15 @@ export default function Header() {
   const [location] = useLocation();
 
   return (
-    <header className="sticky top-0 z-50 bg-[#F5EDE0]/95 backdrop-blur-sm border-b border-[#D9CFC2]">
+    <header className="sticky top-0 z-50">
+      <div className="bg-[#1E1E1E] text-[#F5EDE0]">
+        <div className="container h-8 flex items-center justify-center">
+          <p className="font-mono-brand text-[10px] tracking-widest uppercase">
+            Free Shipping · Premium Support · Limited Color Drop
+          </p>
+        </div>
+      </div>
+      <div className="bg-[#F5EDE0]/95 backdrop-blur-sm border-b border-[#D9CFC2]">
       <div className="container flex items-center justify-between h-16 md:h-20">
         {/* Logo */}
         <Link href="/">
@@ -32,6 +40,11 @@ export default function Header() {
               About
             </span>
           </Link>
+          <Link href="/orders">
+            <span className={`font-mono-brand text-xs tracking-widest uppercase transition-colors ${location === '/orders' ? 'text-[#D93A1D]' : 'text-[#6B6358] hover:text-[#1E1E1E]'}`}>
+              Track Order
+            </span>
+          </Link>
         </nav>
 
         {/* Cart */}
@@ -45,6 +58,7 @@ export default function Header() {
             )}
           </span>
         </Link>
+      </div>
       </div>
       {/* Brand gradient rule */}
       <div className="h-[2px] bg-gradient-to-r from-[#D93A1D] via-[#E8762A] to-[#A3A800]" />

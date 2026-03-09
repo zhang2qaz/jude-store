@@ -42,7 +42,7 @@ export default function Home() {
                 that celebrate personalization and joy.
               </p>
               <Link href="/product">
-                <span className="inline-flex items-center gap-3 bg-[#D93A1D] text-[#F5EDE0] px-8 py-4 font-body text-sm tracking-wider uppercase hover:bg-[#C0311A] transition-colors">
+                <span className="jude-btn-primary">
                   Shop Now <ArrowRight size={16} />
                 </span>
               </Link>
@@ -55,11 +55,11 @@ export default function Home() {
               transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
               className="relative"
             >
-              <div className="bg-[#F5EDE0] rounded-lg p-6 md:p-10 shadow-2xl">
+              <div className="bg-[#F5EDE0] rounded-lg p-6 md:p-10 shadow-2xl jude-hover-card">
                 <img
                   src={PRODUCT.heroImage}
                   alt="jude French 4-Door Retro Refrigerator"
-                  className="w-full h-auto object-contain max-h-[500px]"
+                  className="w-full h-auto object-contain max-h-[500px] transition-transform duration-500 hover:scale-[1.02]"
                 />
               </div>
             </motion.div>
@@ -116,13 +116,16 @@ export default function Home() {
                 transition={{ duration: 0.5, delay: i * 0.1 }}
               >
                 <Link href="/product">
-                  <div className="group cursor-pointer">
-                    <div className="bg-[#FFFBF5] rounded-lg p-4 mb-3 overflow-hidden aspect-[3/4] flex items-center justify-center border border-[#D9CFC2] group-hover:border-[#D93A1D] transition-colors">
+                  <div className="group cursor-pointer jude-hover-card">
+                    <div className="relative bg-[#FFFBF5] rounded-lg p-4 mb-3 overflow-hidden aspect-[3/4] flex items-center justify-center border border-[#D9CFC2] group-hover:border-[#D93A1D] transition-colors">
                       <img
                         src={color.image}
                         alt={color.name}
                         className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
                       />
+                      <span className="absolute top-2 left-2 bg-[#1E1E1E] text-[#F5EDE0] text-[10px] px-2 py-1 font-mono-brand tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-opacity">
+                        Quick View
+                      </span>
                     </div>
                     <p className="font-body text-xs text-center text-[#6B6358]">{color.name}</p>
                   </div>
@@ -182,7 +185,7 @@ export default function Home() {
               The jude French 4-Door Retro Refrigerator. Starting at $49,999.
             </p>
             <Link href="/product">
-              <span className="inline-flex items-center gap-3 bg-[#F5EDE0] text-[#1E1E1E] px-10 py-4 font-body text-sm tracking-wider uppercase hover:bg-white transition-colors">
+              <span className="inline-flex items-center gap-3 bg-[#F5EDE0] text-[#1E1E1E] px-10 py-4 font-body text-sm tracking-wider uppercase hover:bg-white transition-all duration-300 hover:-translate-y-0.5">
                 Shop Now <ArrowRight size={16} />
               </span>
             </Link>

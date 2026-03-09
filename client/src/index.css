@@ -154,6 +154,35 @@
 }
 
 @layer components {
+  .jude-btn-primary {
+    @apply inline-flex items-center justify-center gap-3 bg-[#D93A1D] text-[#F5EDE0] px-8 py-4 font-body text-sm tracking-wider uppercase transition-all duration-300;
+    box-shadow: 0 6px 20px rgba(217, 58, 29, 0.2);
+  }
+
+  .jude-btn-primary:hover {
+    @apply bg-[#C0311A];
+    transform: translateY(-1px);
+    box-shadow: 0 10px 24px rgba(217, 58, 29, 0.28);
+  }
+
+  .jude-btn-outline {
+    @apply inline-flex items-center justify-center gap-3 border-2 border-[#1E1E1E] text-[#1E1E1E] px-8 py-4 font-body text-sm tracking-wider uppercase transition-all duration-300;
+  }
+
+  .jude-btn-outline:hover {
+    @apply bg-[#1E1E1E] text-[#F5EDE0];
+    transform: translateY(-1px);
+  }
+
+  .jude-hover-card {
+    @apply transition-all duration-300;
+  }
+
+  .jude-hover-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 30px rgba(30, 30, 30, 0.1);
+  }
+
   .container {
     width: 100%;
     margin-left: auto;
