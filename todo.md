@@ -1,0 +1,33 @@
+# JUDE Store TODO
+
+- [x] Rollback to Concept 3 colorful version
+- [x] Upgrade to full-stack (db, server, user)
+- [x] Replace all 3-door fridge images with 4-door fridge images
+- [x] Process 4-door fridge images with JUDE branding (9 colors)
+- [x] Upload processed images to CDN
+- [x] Update product data with new 4-door fridge CDN URLs
+- [x] Add inventory table to database schema
+- [x] Add orders table to database schema
+- [x] Implement server-side inventory management (getStock, decrementStock)
+- [x] Implement server-side order placement with inventory check
+- [x] Add owner notification on new order
+- [x] Add magnifier hover effect on product main image
+- [x] Add success modal with custom message after order placement
+- [x] Update checkout page with server-side order placement
+- [x] Update order confirmation page with server-side order data
+- [x] Write vitest tests for inventory and order procedures (8 tests passing)
+- [x] Stock decrements on each order
+- [x] Out-of-stock prevents ordering
+- [x] Regenerate all product images based on approved green fridge reference (same form + jude logo position)
+- [x] Generate red variant
+- [x] Generate yellow variant
+- [x] Generate blue variant
+- [x] Generate white variant
+- [x] Generate black variant
+- [x] Generate pink variant
+- [x] Generate orange variant
+- [x] Generate purple variant
+- [x] Upload all new images to CDN
+- [x] Update product data with new CDN URLs
+- [x] Remove magnifier hover effect from product page
+- [x] Keep green fridge as-is (already approved)
