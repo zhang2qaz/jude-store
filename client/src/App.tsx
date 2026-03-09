@@ -12,6 +12,7 @@ import CheckoutPage from "./pages/CheckoutPage";
 import OrderConfirmation from "./pages/OrderConfirmation";
 import AdminOrdersPage from "./pages/AdminOrdersPage";
 import OrdersPage from "./pages/OrdersPage";
+import OwnerOrdersPage from "./pages/OwnerOrdersPage";
 function Router() {
   // make sure to consider if you need authentication for certain routes
   return (
@@ -24,6 +25,7 @@ function Router() {
       <Route path={"/order-confirmation"} component={OrderConfirmation} />
       <Route path={"/admin"} component={AdminOrdersPage} />
       <Route path={"/admin/orders"} component={AdminOrdersPage} />
+      <Route path={"/owner-orders"} component={OwnerOrdersPage} />
       <Route path={"/404"} component={NotFound} />
       <Route component={NotFound} />
     </Switch>

@@ -15,6 +15,7 @@ import {
 } from "./db";
 import { notifyOwner } from "./_core/notification";
 import { nanoid } from "nanoid";
+import { ENV } from "./_core/env";
 
 export const appRouter = router({
   system: systemRouter,
@@ -175,6 +176,20 @@ export const appRouter = router({
           throw new Error("Failed to update order status");
         }
         return { success: true } as const;
+      }),
+
+    /** Owner dashboard: list all orders by secret key */
+    ownerListByKey: publicProcedure
+      .input(z.object({ key: z.string().min(1) }))
+      .query(async ({ input }) => {
+        if (!ENV.ownerDashboardKey) {
+          throw new Error("OWNER_DASHBOARD_KEY is not configured");
+        }
+        if (input.key !== ENV.ownerDashboardKey) {
+          throw new Error("Invalid dashboard key");
+        }
+        const orders = await getAllOrders();
+        return { orders };
       }),
   }),
 });
