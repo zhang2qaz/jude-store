@@ -9,7 +9,7 @@ export default function Footer() {
       <div className="h-[3px] bg-gradient-to-r from-[#A3A800] via-[#E8762A] to-[#D93A1D]" />
 
       <div className="container py-16 md:py-20">
-        <div className="grid md:grid-cols-4 gap-12">
+        <div className="grid md:grid-cols-5 gap-10">
           {/* Brand Column */}
           <div className="md:col-span-2">
             <h2 className="font-display text-4xl md:text-5xl font-medium mb-6">jude</h2>
@@ -21,71 +21,77 @@ export default function Footer() {
               and thoughtful approach to living. Each detail is intentionally crafted to create homes
               that feel sophisticated, warm, and true to you.
             </p>
+            <div className="mt-5 space-y-2">
+              <p className="font-body text-sm text-[#9B9488]">support@jude.homes</p>
+              <p className="font-body text-sm text-[#9B9488]">Mon-Sat · 9:00-18:00 EST</p>
+              <p className="font-body text-sm text-[#9B9488]">New York City</p>
+            </div>
           </div>
 
-          {/* Links Column */}
+          {/* Customer Care */}
           <div>
             <h3 className="font-mono-brand text-xs tracking-widest uppercase text-[#A3A800] mb-6">
-              Navigate
+              Customer Care
             </h3>
             <nav className="flex flex-col gap-3">
-              <a href="/product" className="font-body text-sm text-[#9B9488] hover:text-[#F5EDE0] transition-colors">
-                Shop
-              </a>
-              <a href="/about" className="font-body text-sm text-[#9B9488] hover:text-[#F5EDE0] transition-colors">
-                About
-              </a>
-              <a href="/delivery-installation" className="font-body text-sm text-[#9B9488] hover:text-[#F5EDE0] transition-colors">
-                Delivery & Installation
-              </a>
               <a href="/support" className="font-body text-sm text-[#9B9488] hover:text-[#F5EDE0] transition-colors">
                 Warranty & Support
               </a>
-              <a href="/cart" className="font-body text-sm text-[#9B9488] hover:text-[#F5EDE0] transition-colors">
-                Cart
+              <a href="/orders" className="font-body text-sm text-[#9B9488] hover:text-[#F5EDE0] transition-colors">
+                Track Existing Order
+              </a>
+              <a href="/support#faq" className="font-body text-sm text-[#9B9488] hover:text-[#F5EDE0] transition-colors">
+                FAQ
+              </a>
+              <a href="/support#contact" className="font-body text-sm text-[#9B9488] hover:text-[#F5EDE0] transition-colors">
+                Contact
+              </a>
+              <a href="mailto:support@jude.homes" className="font-body text-sm text-[#9B9488] hover:text-[#F5EDE0] transition-colors">
+                Email Support
               </a>
             </nav>
           </div>
 
-          {/* Trust & Support */}
+          {/* Delivery & Policy */}
           <div>
             <h3 className="font-mono-brand text-xs tracking-widest uppercase text-[#A3A800] mb-6">
-              Support
+              Delivery & Policy
             </h3>
-            <div className="space-y-3">
-              <p className="font-body text-sm text-[#9B9488]">5-year limited warranty</p>
-              <p className="font-body text-sm text-[#9B9488]">White-glove delivery available</p>
-              <a
-                href="mailto:support@jude.homes"
-                className="block font-body text-sm text-[#9B9488] hover:text-[#F5EDE0] transition-colors"
-              >
-                support@jude.homes
+            <nav className="flex flex-col gap-3">
+              <a href="/delivery-installation" className="font-body text-sm text-[#9B9488] hover:text-[#F5EDE0] transition-colors">
+                Delivery & Installation
               </a>
-              <a
-                href="/orders"
-                className="block font-body text-sm text-[#9B9488] hover:text-[#F5EDE0] transition-colors"
-              >
-                Order Help
+              <a href="/policies#shipping" className="font-body text-sm text-[#9B9488] hover:text-[#F5EDE0] transition-colors">
+                Shipping Summary
               </a>
-              <a
-                href="/support#faq"
-                className="block font-body text-sm text-[#9B9488] hover:text-[#F5EDE0] transition-colors"
-              >
-                FAQ
+              <a href="/policies#returns" className="font-body text-sm text-[#9B9488] hover:text-[#F5EDE0] transition-colors">
+                Returns & Policy
               </a>
-              <a
-                href="/support#contact"
-                className="block font-body text-sm text-[#9B9488] hover:text-[#F5EDE0] transition-colors"
-              >
-                Contact
+              <a href="/policies#warranty" className="font-body text-sm text-[#9B9488] hover:text-[#F5EDE0] transition-colors">
+                Warranty
               </a>
-              <a
-                href="/delivery-installation"
-                className="block font-body text-sm text-[#9B9488] hover:text-[#F5EDE0] transition-colors"
-              >
-                Delivery & Installation Guide
+            </nav>
+          </div>
+
+          {/* Legal & Social */}
+          <div>
+            <h3 className="font-mono-brand text-xs tracking-widest uppercase text-[#A3A800] mb-6">
+              Legal & Social
+            </h3>
+            <nav className="flex flex-col gap-3">
+              <a href="/policies#privacy" className="font-body text-sm text-[#9B9488] hover:text-[#F5EDE0] transition-colors">
+                Privacy Policy
               </a>
-            </div>
+              <a href="/policies#terms" className="font-body text-sm text-[#9B9488] hover:text-[#F5EDE0] transition-colors">
+                Terms of Use
+              </a>
+              <a href="/policies#legal" className="font-body text-sm text-[#9B9488] hover:text-[#F5EDE0] transition-colors">
+                Legal Summary
+              </a>
+              <a href="https://www.instagram.com/" target="_blank" rel="noreferrer" className="font-body text-sm text-[#9B9488] hover:text-[#F5EDE0] transition-colors">
+                Instagram
+              </a>
+            </nav>
           </div>
         </div>
 
