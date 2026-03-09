@@ -12,6 +12,8 @@ import {
   getAllOrders,
   getOrdersByContact,
   updateOrderStatusByNumber,
+  getAllUsers,
+  updateUserRoleByOpenId,
 } from "./db";
 import { notifyOwner } from "./_core/notification";
 import { nanoid } from "nanoid";
@@ -48,6 +50,89 @@ export const appRouter = router({
       .query(async ({ input }) => {
         const stocks = await getAllStock(input.productId);
         return { stocks };
+      }),
+  }),
+
+  admin: router({
+    /** Admin: list users and their order aggregates */
+    userList: adminProcedure
+      .input(
+        z
+          .object({
+            q: z.string().optional(),
+          })
+          .optional()
+      )
+      .query(async ({ input }) => {
+        const [users, allOrders] = await Promise.all([getAllUsers(), getAllOrders()]);
+        const query = input?.q?.trim().toLowerCase();
+
+        const rows = users.map(user => {
+          const userOrders = allOrders.filter(
+            order =>
+              (user.email && order.email === user.email) ||
+              (user.name &&
+                `${order.firstName} ${order.lastName}`.trim().toLowerCase() === user.name.toLowerCase())
+          );
+
+          const orderCount = userOrders.length;
+          const totalRevenue = userOrders.reduce((sum, order) => sum + order.totalPrice, 0);
+          const latestOrderAt =
+            userOrders.length > 0
+              ? new Date(
+                  Math.max(...userOrders.map(order => new Date(order.createdAt as unknown as string).getTime()))
+                ).toISOString()
+              : null;
+
+          return {
+            id: user.id,
+            openId: user.openId,
+            name: user.name,
+            email: user.email,
+            role: user.role,
+            lastSignedIn: user.lastSignedIn,
+            createdAt: user.createdAt,
+            orderCount,
+            totalRevenue,
+            latestOrderAt,
+          };
+        });
+
+        const filtered = query
+          ? rows.filter(item =>
+              item.openId.toLowerCase().includes(query) ||
+              (item.name ?? "").toLowerCase().includes(query) ||
+              (item.email ?? "").toLowerCase().includes(query)
+            )
+          : rows;
+
+        filtered.sort((a, b) => {
+          if (a.role !== b.role) return a.role === "admin" ? -1 : 1;
+          if (b.orderCount !== a.orderCount) return b.orderCount - a.orderCount;
+          return new Date(b.lastSignedIn as unknown as string).getTime() - new Date(a.lastSignedIn as unknown as string).getTime();
+        });
+
+        return { users: filtered };
+      }),
+
+    /** Admin: update user role */
+    userUpdateRole: adminProcedure
+      .input(
+        z.object({
+          openId: z.string().min(1),
+          role: z.enum(["user", "admin"]),
+        })
+      )
+      .mutation(async ({ input }) => {
+        if (ENV.ownerOpenId && input.openId === ENV.ownerOpenId && input.role !== "admin") {
+          throw new Error("OWNER_OPEN_ID cannot be downgraded");
+        }
+
+        const ok = await updateUserRoleByOpenId(input.openId, input.role);
+        if (!ok) {
+          throw new Error("Failed to update user role");
+        }
+        return { success: true } as const;
       }),
   }),
 

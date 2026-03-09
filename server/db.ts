@@ -1,4 +1,4 @@
-import { eq, and, sql } from "drizzle-orm";
+import { eq, and, desc, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { InsertUser, users, inventory, orders, InsertOrder, Order } from "../drizzle/schema";
 import { ENV } from './_core/env';
@@ -132,6 +132,42 @@ export async function getUserByOpenId(openId: string) {
   const result = await db.select().from(users).where(eq(users.openId, openId)).limit(1);
 
   return result.length > 0 ? result[0] : undefined;
+}
+
+/**
+ * List users for admin management page.
+ */
+export async function getAllUsers() {
+  const db = await getDb();
+  if (!db) return [];
+
+  try {
+    return await db.select().from(users).orderBy(desc(users.lastSignedIn));
+  } catch {
+    return [];
+  }
+}
+
+/**
+ * Update user role by openId.
+ */
+export async function updateUserRoleByOpenId(
+  openId: string,
+  role: InsertUser["role"]
+): Promise<boolean> {
+  const db = await getDb();
+  if (!db) return false;
+
+  try {
+    const result = await db
+      .update(users)
+      .set({ role: role ?? "user" })
+      .where(eq(users.openId, openId));
+
+    return (result as any)[0]?.affectedRows > 0;
+  } catch {
+    return false;
+  }
 }
 
 // ==================== Inventory Helpers ====================

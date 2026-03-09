@@ -11,6 +11,7 @@ import CartPage from "./pages/CartPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import OrderConfirmation from "./pages/OrderConfirmation";
 import AdminOrdersPage from "./pages/AdminOrdersPage";
+import AdminUsersPage from "./pages/AdminUsersPage";
 import OrdersPage from "./pages/OrdersPage";
 import OwnerOrdersPage from "./pages/OwnerOrdersPage";
 import DeliveryInfoPage from "./pages/DeliveryInfoPage";
@@ -35,6 +36,7 @@ function Router() {
       <Route path={"/order-confirmation"} component={OrderConfirmation} />
       <Route path={"/admin"} component={AdminOrdersPage} />
       <Route path={"/admin/orders"} component={AdminOrdersPage} />
+      <Route path={"/admin/users"} component={AdminUsersPage} />
       <Route path={"/owner-orders"} component={OwnerOrdersPage} />
       <Route path={"/404"} component={NotFound} />
       <Route component={NotFound} />
