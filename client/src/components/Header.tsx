@@ -20,14 +20,23 @@ import {
 export default function Header() {
   const { totalItems, totalPrice, items, updateQuantity, removeFromCart } = useCart();
   const [location] = useLocation();
+  const isActive = (path: string) => location === path;
 
   return (
     <header className="sticky top-0 z-50">
       <div className="bg-[#1E1E1E] text-[#F5EDE0]">
-        <div className="container h-8 flex items-center justify-center">
+        <div className="container h-8 flex items-center justify-between">
           <p className="font-mono-brand text-[10px] tracking-widest uppercase">
             Free Shipping · Premium Support · Limited Color Drop
           </p>
+          <div className="hidden md:flex items-center gap-5">
+            <a href="/support#faq" className="font-mono-brand text-[10px] tracking-widest uppercase text-[#F5EDE0]/70 hover:text-[#F5EDE0] transition-colors">
+              FAQ
+            </a>
+            <a href="mailto:support@jude.homes" className="font-mono-brand text-[10px] tracking-widest uppercase text-[#F5EDE0]/70 hover:text-[#F5EDE0] transition-colors">
+              Contact
+            </a>
+          </div>
         </div>
       </div>
       <div className="bg-[#F5EDE0]/95 backdrop-blur-sm border-b border-[#D9CFC2]">
@@ -45,18 +54,23 @@ export default function Header() {
         {/* Navigation */}
         <nav className="hidden md:flex items-center gap-8">
           <Link href="/product">
-            <span className={`font-mono-brand text-xs tracking-widest uppercase transition-colors ${location === '/product' ? 'text-[#D93A1D]' : 'text-[#6B6358] hover:text-[#1E1E1E]'}`}>
+            <span className={`font-mono-brand text-xs tracking-widest uppercase transition-colors ${isActive('/product') ? 'text-[#D93A1D]' : 'text-[#6B6358] hover:text-[#1E1E1E]'}`}>
               Shop
             </span>
           </Link>
-          <Link href="/">
-            <span className={`font-mono-brand text-xs tracking-widest uppercase transition-colors ${location === '/' ? 'text-[#D93A1D]' : 'text-[#6B6358] hover:text-[#1E1E1E]'}`}>
+          <Link href="/about">
+            <span className={`font-mono-brand text-xs tracking-widest uppercase transition-colors ${isActive('/about') ? 'text-[#D93A1D]' : 'text-[#6B6358] hover:text-[#1E1E1E]'}`}>
               About
             </span>
           </Link>
-          <Link href="/orders">
-            <span className={`font-mono-brand text-xs tracking-widest uppercase transition-colors ${location === '/orders' ? 'text-[#D93A1D]' : 'text-[#6B6358] hover:text-[#1E1E1E]'}`}>
-              Track Order
+          <Link href="/delivery-installation">
+            <span className={`font-mono-brand text-xs tracking-widest uppercase transition-colors ${isActive('/delivery-installation') ? 'text-[#D93A1D]' : 'text-[#6B6358] hover:text-[#1E1E1E]'}`}>
+              Delivery
+            </span>
+          </Link>
+          <Link href="/support">
+            <span className={`font-mono-brand text-xs tracking-widest uppercase transition-colors ${isActive('/support') ? 'text-[#D93A1D]' : 'text-[#6B6358] hover:text-[#1E1E1E]'}`}>
+              Support
             </span>
           </Link>
         </nav>

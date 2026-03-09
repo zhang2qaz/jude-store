@@ -32,11 +32,17 @@ export default function Footer() {
               <a href="/product" className="font-body text-sm text-[#9B9488] hover:text-[#F5EDE0] transition-colors">
                 Shop
               </a>
+              <a href="/about" className="font-body text-sm text-[#9B9488] hover:text-[#F5EDE0] transition-colors">
+                About
+              </a>
+              <a href="/delivery-installation" className="font-body text-sm text-[#9B9488] hover:text-[#F5EDE0] transition-colors">
+                Delivery & Installation
+              </a>
+              <a href="/support" className="font-body text-sm text-[#9B9488] hover:text-[#F5EDE0] transition-colors">
+                Warranty & Support
+              </a>
               <a href="/cart" className="font-body text-sm text-[#9B9488] hover:text-[#F5EDE0] transition-colors">
                 Cart
-              </a>
-              <a href="/" className="font-body text-sm text-[#9B9488] hover:text-[#F5EDE0] transition-colors">
-                About
               </a>
             </nav>
           </div>
@@ -60,6 +66,18 @@ export default function Footer() {
                 className="block font-body text-sm text-[#9B9488] hover:text-[#F5EDE0] transition-colors"
               >
                 Order Help
+              </a>
+              <a
+                href="/support#faq"
+                className="block font-body text-sm text-[#9B9488] hover:text-[#F5EDE0] transition-colors"
+              >
+                FAQ
+              </a>
+              <a
+                href="/support#contact"
+                className="block font-body text-sm text-[#9B9488] hover:text-[#F5EDE0] transition-colors"
+              >
+                Contact
               </a>
               <a
                 href="/delivery-installation"

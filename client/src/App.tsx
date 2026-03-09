@@ -14,16 +14,20 @@ import AdminOrdersPage from "./pages/AdminOrdersPage";
 import OrdersPage from "./pages/OrdersPage";
 import OwnerOrdersPage from "./pages/OwnerOrdersPage";
 import DeliveryInfoPage from "./pages/DeliveryInfoPage";
+import AboutPage from "./pages/AboutPage";
+import SupportPage from "./pages/SupportPage";
 function Router() {
   // make sure to consider if you need authentication for certain routes
   return (
     <Switch>
       <Route path={"/"} component={Home} />
+      <Route path={"/about"} component={AboutPage} />
       <Route path={"/product"} component={ProductPage} />
       <Route path={"/cart"} component={CartPage} />
       <Route path={"/checkout"} component={CheckoutPage} />
       <Route path={"/orders"} component={OrdersPage} />
       <Route path={"/delivery-installation"} component={DeliveryInfoPage} />
+      <Route path={"/support"} component={SupportPage} />
       <Route path={"/order-confirmation"} component={OrderConfirmation} />
       <Route path={"/admin"} component={AdminOrdersPage} />
       <Route path={"/admin/orders"} component={AdminOrdersPage} />
