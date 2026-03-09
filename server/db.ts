@@ -4,6 +4,61 @@ import { InsertUser, users, inventory, orders, InsertOrder, Order } from "../dri
 import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
+let _schemaEnsured = false;
+
+async function ensureSchema(db: ReturnType<typeof drizzle>) {
+  if (_schemaEnsured) return;
+
+  await db.execute(sql`
+    CREATE TABLE IF NOT EXISTS users (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      openId VARCHAR(64) NOT NULL UNIQUE,
+      name TEXT NULL,
+      email VARCHAR(320) NULL,
+      loginMethod VARCHAR(64) NULL,
+      role ENUM('user','admin') NOT NULL DEFAULT 'user',
+      createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      updatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+      lastSignedIn TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+    )
+  `);
+
+  await db.execute(sql`
+    CREATE TABLE IF NOT EXISTS inventory (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      productId VARCHAR(128) NOT NULL,
+      colorName VARCHAR(64) NOT NULL,
+      stock INT NOT NULL DEFAULT 10,
+      createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      updatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    )
+  `);
+
+  await db.execute(sql`
+    CREATE TABLE IF NOT EXISTS orders (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      orderNumber VARCHAR(32) NOT NULL UNIQUE,
+      productId VARCHAR(128) NOT NULL,
+      colorName VARCHAR(64) NOT NULL,
+      quantity INT NOT NULL DEFAULT 1,
+      totalPrice INT NOT NULL,
+      firstName VARCHAR(128) NOT NULL,
+      lastName VARCHAR(128) NOT NULL,
+      email VARCHAR(320) NOT NULL,
+      phone VARCHAR(32) NOT NULL,
+      address TEXT NOT NULL,
+      city VARCHAR(128) NOT NULL,
+      state VARCHAR(64) NOT NULL,
+      zipCode VARCHAR(16) NOT NULL,
+      country VARCHAR(64) NOT NULL DEFAULT 'US',
+      status ENUM('pending','confirmed','shipped','delivered','cancelled') NOT NULL DEFAULT 'pending',
+      createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      updatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    )
+  `);
+
+  _schemaEnsured = true;
+}
 
 // Lazily create the drizzle instance so local tooling can run without a DB.
 export async function getDb() {
@@ -14,6 +69,14 @@ export async function getDb() {
     } catch (error) {
       console.warn("[Database] Failed to connect:", error);
       _db = null;
+    }
+  }
+
+  if (_db) {
+    try {
+      await ensureSchema(_db);
+    } catch (error) {
+      console.warn("[Database] Failed to ensure schema:", error);
     }
   }
   return _db;
