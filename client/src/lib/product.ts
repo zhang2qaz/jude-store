@@ -8,7 +8,7 @@ export const PRODUCT = {
   id: "jude-french-4door-retro-refrigerator",
   name: "jude French 4-Door Retro Refrigerator",
   price: 49999,
-  inventory: 3,
+  inventory: 10,
   tagline: "your life, styled",
   description: `Rooted in the bold individuality of New York City, the jude French 4-Door Retro Refrigerator is designed for homes that celebrate personal expression. Each unit features an art-grade lacquer finish in your choice of vibrant color, merging mid-century warmth with modern precision.`,
   brandStatement: `We celebrate the uniqueness of every home by crafting appliances that empower personal style and reflect individuality.`,

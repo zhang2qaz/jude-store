@@ -10,12 +10,12 @@ vi.mock("./db", () => {
   return {
     getStock: vi.fn(async (productId: string, colorName: string) => {
       const key = `${productId}:${colorName}`;
-      return stockMap[key] ?? 3;
+      return stockMap[key] ?? 10;
     }),
     getAllStock: vi.fn(async () => []),
     decrementStock: vi.fn(async (productId: string, colorName: string, quantity: number) => {
       const key = `${productId}:${colorName}`;
-      const current = stockMap[key] ?? 3;
+      const current = stockMap[key] ?? 10;
       if (current < quantity) return false;
       stockMap[key] = current - quantity;
       return true;
@@ -66,7 +66,7 @@ describe("inventory.getStock", () => {
     (db as any)._reset();
   });
 
-  it("returns default stock of 3 for new product/color", async () => {
+  it("returns default stock of 10 for new product/color", async () => {
     const ctx = createPublicContext();
     const caller = appRouter.createCaller(ctx);
 
@@ -75,7 +75,7 @@ describe("inventory.getStock", () => {
       colorName: "Vermillion Red",
     });
 
-    expect(result.stock).toBe(3);
+    expect(result.stock).toBe(10);
   });
 
   it("returns custom stock when set", async () => {

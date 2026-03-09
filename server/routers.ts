@@ -67,6 +67,7 @@ export const appRouter = router({
         state: z.string().min(1),
         zipCode: z.string().min(1),
         country: z.string().default("US"),
+        paymentMethod: z.enum(["bank_transfer", "sales_contact"]).default("bank_transfer"),
       }))
       .mutation(async ({ input }) => {
         // Check and decrement stock
@@ -109,6 +110,7 @@ export const appRouter = router({
               `**Color:** ${input.colorName}`,
               `**Quantity:** ${input.quantity}`,
               `**Total:** $${(input.totalPrice).toLocaleString()}`,
+              `**Payment Method:** ${input.paymentMethod === "bank_transfer" ? "Bank Transfer" : "Sales Contact"}`,
               ``,
               `**Customer Information:**`,
               `- Name: ${input.firstName} ${input.lastName}`,

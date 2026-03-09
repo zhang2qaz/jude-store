@@ -106,9 +106,18 @@ export async function getStock(productId: string, colorName: string): Promise<nu
     .limit(1);
 
   if (result.length === 0) {
-    // Initialize stock with default 3 units
-    await db.insert(inventory).values({ productId, colorName, stock: 3 });
-    return 3;
+    // Initialize stock with default 10 units
+    await db.insert(inventory).values({ productId, colorName, stock: 10 });
+    return 10;
+  }
+
+  // If historical data contains zero/negative stock, normalize it to 10.
+  if (result[0].stock <= 0) {
+    await db
+      .update(inventory)
+      .set({ stock: 10 })
+      .where(and(eq(inventory.productId, productId), eq(inventory.colorName, colorName)));
+    return 10;
   }
 
   return result[0].stock;

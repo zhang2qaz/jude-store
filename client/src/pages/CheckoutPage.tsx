@@ -6,7 +6,7 @@
 import { useState } from "react";
 import { useLocation } from "wouter";
 import { motion } from "framer-motion";
-import { Lock, CreditCard, CheckCircle } from "lucide-react";
+import { Lock, CheckCircle } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useCart } from "@/contexts/CartContext";
@@ -35,18 +35,56 @@ export default function CheckoutPage() {
     state: "",
     zip: "",
     country: "United States",
-    cardNumber: "",
-    cardExpiry: "",
-    cardCvc: "",
-    cardName: "",
+    paymentMethod: "bank_transfer" as "bank_transfer" | "sales_contact",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  const validateForm = () => {
+    const requiredFields = [
+      { key: "email", label: "邮箱" },
+      { key: "firstName", label: "名" },
+      { key: "lastName", label: "姓" },
+      { key: "phone", label: "手机号" },
+      { key: "address", label: "街道地址" },
+      { key: "city", label: "城市" },
+      { key: "state", label: "省/州" },
+      { key: "zip", label: "邮编" },
+    ] as const;
+
+    for (const field of requiredFields) {
+      const value = form[field.key];
+      if (!value || !value.trim()) {
+        return `请填写${field.label}`;
+      }
+    }
+
+    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim());
+    if (!emailOk) return "邮箱格式不正确";
+
+    const phoneOk = /^[0-9+\-() ]{6,20}$/.test(form.phone.trim());
+    if (!phoneOk) return "手机号格式不正确";
+
+    const zipOk = /^[A-Za-z0-9\- ]{4,12}$/.test(form.zip.trim());
+    if (!zipOk) return "邮编格式不正确";
+
+    return null;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const validationMsg = validateForm();
+    if (validationMsg) {
+      toast.error("表单信息有误", { description: validationMsg });
+      return;
+    }
+    if (items.length === 0) {
+      toast.error("购物车为空", { description: "请先添加商品后再下单。" });
+      navigate("/cart");
+      return;
+    }
     setIsProcessing(true);
 
     try {
@@ -66,6 +104,7 @@ export default function CheckoutPage() {
           state: form.state,
           zipCode: form.zip,
           country: form.country,
+          paymentMethod: form.paymentMethod,
         });
 
         setOrderNumber(result.orderNumber);
@@ -241,49 +280,44 @@ export default function CheckoutPage() {
 
                 {/* Payment */}
                 <section>
-                  <h2 className="font-display text-xl font-medium text-[#1E1E1E] mb-4">Payment</h2>
+                  <h2 className="font-display text-xl font-medium text-[#1E1E1E] mb-4">Payment Method</h2>
                   <div className="bg-[#FFFBF5] border border-[#D9CFC2] rounded-lg p-6">
-                    <div className="flex items-center gap-2 mb-4">
-                      <CreditCard size={18} className="text-[#D93A1D]" />
-                      <span className="font-body text-sm font-medium text-[#1E1E1E]">Credit Card</span>
-                    </div>
-                    <input
-                      type="text"
-                      name="cardName"
-                      value={form.cardName}
-                      onChange={handleChange}
-                      placeholder="Name on card"
-                      required
-                      className={`${inputClass} mb-4`}
-                    />
-                    <input
-                      type="text"
-                      name="cardNumber"
-                      value={form.cardNumber}
-                      onChange={handleChange}
-                      placeholder="Card number"
-                      required
-                      className={`${inputClass} mb-4`}
-                    />
-                    <div className="grid grid-cols-2 gap-4">
-                      <input
-                        type="text"
-                        name="cardExpiry"
-                        value={form.cardExpiry}
-                        onChange={handleChange}
-                        placeholder="MM / YY"
-                        required
-                        className={inputClass}
-                      />
-                      <input
-                        type="text"
-                        name="cardCvc"
-                        value={form.cardCvc}
-                        onChange={handleChange}
-                        placeholder="CVC"
-                        required
-                        className={inputClass}
-                      />
+                    <div className="space-y-3">
+                      <label className="flex items-start gap-3 border border-[#D9CFC2] rounded p-4 cursor-pointer hover:border-[#D93A1D] transition-colors">
+                        <input
+                          type="radio"
+                          name="paymentMethod"
+                          value="bank_transfer"
+                          checked={form.paymentMethod === "bank_transfer"}
+                          onChange={handleChange}
+                          className="mt-1"
+                        />
+                        <div>
+                          <p className="font-body text-sm font-medium text-[#1E1E1E]">Bank Transfer</p>
+                          <p className="font-body text-xs text-[#6B6358] mt-1">
+                            After order confirmation, our team will contact you with payment details.
+                          </p>
+                        </div>
+                      </label>
+
+                      <label className="flex items-start gap-3 border border-[#D9CFC2] rounded p-4 cursor-pointer hover:border-[#D93A1D] transition-colors">
+                        <input
+                          type="radio"
+                          name="paymentMethod"
+                          value="sales_contact"
+                          checked={form.paymentMethod === "sales_contact"}
+                          onChange={handleChange}
+                          className="mt-1"
+                        />
+                        <div>
+                          <p className="font-body text-sm font-medium text-[#1E1E1E]">
+                            Confirm with Sales Representative
+                          </p>
+                          <p className="font-body text-xs text-[#6B6358] mt-1">
+                            We will call you to confirm payment and delivery arrangements.
+                          </p>
+                        </div>
+                      </label>
                     </div>
                   </div>
                 </section>
@@ -355,7 +389,7 @@ export default function CheckoutPage() {
                   </button>
 
                   <p className="font-mono-brand text-[10px] tracking-wider text-center text-[#6B6358] mt-4">
-                    Your payment information is secure and encrypted.
+                    No card details are collected on this site.
                   </p>
                 </div>
               </div>

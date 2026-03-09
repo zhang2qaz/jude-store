@@ -25,7 +25,7 @@ export const inventory = mysqlTable("inventory", {
   id: int("id").autoincrement().primaryKey(),
   productId: varchar("productId", { length: 128 }).notNull(),
   colorName: varchar("colorName", { length: 64 }).notNull(),
-  stock: int("stock").notNull().default(3),
+  stock: int("stock").notNull().default(10),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });
