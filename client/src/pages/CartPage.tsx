@@ -8,7 +8,7 @@ import { Trash2, Minus, Plus, ArrowLeft, ArrowRight, ShoppingBag } from "lucide-
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useCart } from "@/contexts/CartContext";
-import { formatPrice } from "@/lib/product";
+import { RECOMMENDED_PAIRINGS, formatPrice } from "@/lib/product";
 
 export default function CartPage() {
   const { items, removeFromCart, updateQuantity, totalPrice } = useCart();
@@ -153,6 +153,40 @@ export default function CartPage() {
               </div>
             </div>
           </div>
+
+          <section className="mt-16">
+            <div className="flex items-center justify-between mb-5">
+              <h2 className="font-display text-2xl text-[#1E1E1E]">Recommended Pairings</h2>
+              <span className="font-mono-brand text-[10px] tracking-widest uppercase text-[#6B6358]">
+                Optional add-ons
+              </span>
+            </div>
+            <div className="grid md:grid-cols-3 gap-4">
+              {RECOMMENDED_PAIRINGS.map((item) => (
+                <div
+                  key={item.id}
+                  className="bg-[#FFFBF5] border border-[#D9CFC2] rounded-lg overflow-hidden jude-hover-card"
+                >
+                  <img src={item.image} alt={item.name} className="w-full h-36 object-cover" />
+                  <div className="p-4">
+                    <h3 className="font-display text-lg text-[#1E1E1E] mb-1">{item.name}</h3>
+                    <p className="font-body text-xs text-[#6B6358] mb-3">{item.description}</p>
+                    <div className="flex items-center justify-between">
+                      <span className="font-mono-brand text-[10px] tracking-wider uppercase text-[#D93A1D]">
+                        {item.priceNote}
+                      </span>
+                      <button
+                        onClick={() => navigate("/checkout")}
+                        className="font-mono-brand text-[10px] tracking-widest uppercase text-[#1E1E1E] hover:text-[#D93A1D] transition-colors"
+                      >
+                        Add at checkout
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
         </div>
       </main>
 

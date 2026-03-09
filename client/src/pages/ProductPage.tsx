@@ -9,7 +9,7 @@ import { ShoppingBag, Check, Minus, Plus, ArrowLeft, Truck, Shield } from "lucid
 import { motion } from "framer-motion";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { PRODUCT, formatPrice } from "@/lib/product";
+import { PRODUCT, RECOMMENDED_PAIRINGS, formatPrice } from "@/lib/product";
 import { useCart } from "@/contexts/CartContext";
 import { toast } from "sonner";
 import { trpc } from "@/lib/trpc";
@@ -264,6 +264,46 @@ export default function ProductPage() {
           </div>
         </div>
 
+        {/* Editorial Story Module */}
+        <section className="bg-[#FFFBF5] border-y border-[#D9CFC2] py-16 md:py-20">
+          <div className="container">
+            <div className="grid lg:grid-cols-3 gap-10 items-start">
+              <div className="lg:col-span-2 grid md:grid-cols-2 gap-4">
+                <div className="rounded-lg overflow-hidden border border-[#D9CFC2] jude-hover-card">
+                  <img
+                    src={PRODUCT.heroImage}
+                    alt={`${PRODUCT.name} editorial angle`}
+                    className="w-full h-full object-cover min-h-[280px]"
+                  />
+                </div>
+                <div className="rounded-lg overflow-hidden border border-[#D9CFC2] jude-hover-card">
+                  <img
+                    src={PRODUCT.secondaryImage}
+                    alt={`${PRODUCT.name} lifestyle angle`}
+                    className="w-full h-full object-cover min-h-[280px]"
+                  />
+                </div>
+              </div>
+              <div>
+                <p className="font-mono-brand text-xs tracking-[0.3em] uppercase text-[#A3A800] mb-3">
+                  Editorial Note
+                </p>
+                <h3 className="font-display text-3xl text-[#1E1E1E] mb-5 leading-tight">
+                  A statement piece for modern kitchens.
+                </h3>
+                <p className="font-body text-sm text-[#6B6358] leading-relaxed mb-6">
+                  Inspired by design magazines and boutique interiors, this refrigerator is made to be
+                  seen. Bold finishes, balanced proportions, and refined details make it the visual
+                  anchor of your space.
+                </p>
+                <blockquote className="border-l-2 border-[#D93A1D] pl-4 font-display text-xl text-[#1E1E1E]">
+                  “Designed to perform like an appliance, and present like furniture.”
+                </blockquote>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Features & Specs */}
         <section className="bg-[#1E1E1E] text-[#F5EDE0] py-16 md:py-24">
           <div className="container">
@@ -302,6 +342,47 @@ export default function ProductPage() {
             <p className="font-display text-2xl md:text-3xl font-medium text-[#F5EDE0] max-w-3xl leading-snug">
               {PRODUCT.brandStatement}
             </p>
+          </div>
+        </section>
+
+        {/* Cross-sell Module */}
+        <section className="bg-[#F5EDE0] py-16 md:py-20">
+          <div className="container">
+            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
+              <div>
+                <p className="font-mono-brand text-xs tracking-[0.3em] uppercase text-[#A3A800] mb-2">
+                  Recommended Pairings
+                </p>
+                <h2 className="font-display text-3xl md:text-4xl text-[#1E1E1E]">Complete the Experience</h2>
+              </div>
+              <p className="font-body text-sm text-[#6B6358] max-w-md">
+                Add premium services to get the most from your purchase. Mention your preference at
+                checkout and our team will include it in your quote.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-5">
+              {RECOMMENDED_PAIRINGS.map((item) => (
+                <div key={item.id} className="bg-[#FFFBF5] border border-[#D9CFC2] rounded-lg overflow-hidden jude-hover-card">
+                  <img src={item.image} alt={item.name} className="w-full h-44 object-cover" />
+                  <div className="p-5">
+                    <h3 className="font-display text-xl text-[#1E1E1E] mb-2">{item.name}</h3>
+                    <p className="font-body text-sm text-[#6B6358] leading-relaxed mb-4">{item.description}</p>
+                    <div className="flex items-center justify-between">
+                      <span className="font-mono-brand text-xs tracking-wider uppercase text-[#D93A1D]">
+                        {item.priceNote}
+                      </span>
+                      <button
+                        onClick={() => navigate("/checkout")}
+                        className="text-[#1E1E1E] font-mono-brand text-[11px] tracking-widest uppercase hover:text-[#D93A1D] transition-colors"
+                      >
+                        Add at Checkout
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
       </main>

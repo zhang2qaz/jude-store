@@ -4,6 +4,14 @@ export interface ProductColor {
   image: string;
 }
 
+export interface RecommendedPairing {
+  id: string;
+  name: string;
+  description: string;
+  priceNote: string;
+  image: string;
+}
+
 export const PRODUCT = {
   id: "jude-french-4door-retro-refrigerator",
   name: "jude French 4-Door Retro Refrigerator",
@@ -78,6 +86,30 @@ export const PRODUCT = {
   heroImage: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663377282092/YxovjxdWnDXdlhxf.png",
   secondaryImage: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663377282092/qlmnAnNYRwwswEfc.png",
 };
+
+export const RECOMMENDED_PAIRINGS: RecommendedPairing[] = [
+  {
+    id: "pairing-install",
+    name: "White-Glove Installation",
+    description: "Professional in-home installation and haul-away service.",
+    priceNote: "From $399",
+    image: PRODUCT.heroImage,
+  },
+  {
+    id: "pairing-protection",
+    name: "Extended Protection Plan",
+    description: "Priority support and extended parts coverage for peace of mind.",
+    priceNote: "From $799",
+    image: PRODUCT.secondaryImage,
+  },
+  {
+    id: "pairing-maintenance",
+    name: "Annual Care Package",
+    description: "Scheduled maintenance and deep-clean service by certified experts.",
+    priceNote: "From $249 / year",
+    image: PRODUCT.colors[2].image,
+  },
+];
 
 export function formatPrice(amount: number): string {
   return new Intl.NumberFormat("en-US", {
