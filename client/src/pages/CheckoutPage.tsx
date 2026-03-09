@@ -13,6 +13,7 @@ import { useCart } from "@/contexts/CartContext";
 import { PRODUCT, formatPrice } from "@/lib/product";
 import { toast } from "sonner";
 import { trpc } from "@/lib/trpc";
+import { usePageMeta } from "@/hooks/usePageMeta";
 
 const inputClass = "w-full border border-[#D9CFC2] bg-[#FFFBF5] rounded px-4 py-3 font-body text-sm text-[#1E1E1E] placeholder:text-[#9B9488] focus:border-[#D93A1D] focus:outline-none focus:ring-1 focus:ring-[#D93A1D]/20 transition-colors";
 
@@ -36,6 +37,11 @@ export default function CheckoutPage() {
     zip: "",
     country: "United States",
     paymentMethod: "bank_transfer" as "bank_transfer" | "sales_contact",
+  });
+  usePageMeta({
+    title: "Checkout | jude",
+    description:
+      "Complete your jude order with secure checkout messaging, delivery contact details, and order summary before placement.",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {

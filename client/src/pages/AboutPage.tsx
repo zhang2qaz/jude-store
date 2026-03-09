@@ -2,8 +2,15 @@ import { Link } from "wouter";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { usePageMeta } from "@/hooks/usePageMeta";
 
 export default function AboutPage() {
+  usePageMeta({
+    title: "About jude | Premium Appliance Brand Positioning",
+    description:
+      "Learn what jude is, why the brand exists, which appliance category it is entering, and how product, policy, delivery, and support systems are structured.",
+  });
+
   return (
     <div className="min-h-screen flex flex-col bg-[#F5EDE0]">
       <Header />

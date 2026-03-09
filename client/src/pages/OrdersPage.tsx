@@ -5,6 +5,7 @@ import { trpc } from "@/lib/trpc";
 import { useState } from "react";
 import { useLocation } from "wouter";
 import { ArrowRight, Search } from "lucide-react";
+import { usePageMeta } from "@/hooks/usePageMeta";
 
 const inputClass =
   "w-full border border-[#D9CFC2] bg-[#FFFBF5] rounded px-4 py-3 font-body text-sm text-[#1E1E1E] placeholder:text-[#9B9488] focus:border-[#D93A1D] focus:outline-none focus:ring-1 focus:ring-[#D93A1D]/20 transition-colors";
@@ -32,6 +33,11 @@ export default function OrdersPage() {
   });
 
   const orders = data?.orders ?? [];
+  usePageMeta({
+    title: "Track Order | jude",
+    description:
+      "Find your jude order history and status using checkout contact details, with direct links to order-level support.",
+  });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;

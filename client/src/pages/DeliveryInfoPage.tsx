@@ -2,6 +2,7 @@ import { Link } from "wouter";
 import { ArrowLeft, ArrowRight, CheckCircle2, Ruler, Truck } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { usePageMeta } from "@/hooks/usePageMeta";
 
 const STEPS = [
   {
@@ -22,6 +23,12 @@ const STEPS = [
 ];
 
 export default function DeliveryInfoPage() {
+  usePageMeta({
+    title: "Delivery & Installation Guide | jude",
+    description:
+      "Review jude delivery timelines, white-glove handling, installation preparation, and apartment/building-access checklist before ordering.",
+  });
+
   return (
     <div className="min-h-screen flex flex-col bg-[#F5EDE0]">
       <Header />

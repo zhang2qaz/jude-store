@@ -13,6 +13,7 @@ import { PRODUCT, RECOMMENDED_PAIRINGS, formatPrice } from "@/lib/product";
 import { useCart } from "@/contexts/CartContext";
 import { toast } from "sonner";
 import { trpc } from "@/lib/trpc";
+import { usePageMeta } from "@/hooks/usePageMeta";
 
 export default function ProductPage() {
   const [selectedColor, setSelectedColor] = useState(0);
@@ -22,6 +23,11 @@ export default function ProductPage() {
   const { addToCart } = useCart();
 
   const currentColor = PRODUCT.colors[selectedColor];
+  usePageMeta({
+    title: `${PRODUCT.name} | Product Specs, Delivery & Warranty | jude`,
+    description:
+      "View technical specifications, dimensions, materials, electrical requirements, delivery guidance, and warranty details for the jude French 4-Door Retro Refrigerator.",
+  });
 
   // Fetch stock from server
   const { data: stockData } = trpc.inventory.getStock.useQuery({

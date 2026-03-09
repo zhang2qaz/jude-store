@@ -2,8 +2,15 @@ import { Link } from "wouter";
 import { ArrowLeft } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { usePageMeta } from "@/hooks/usePageMeta";
 
 export default function PoliciesPage() {
+  usePageMeta({
+    title: "Policies | Shipping, Returns, Warranty, Legal | jude",
+    description:
+      "Review jude shipping, returns, warranty, privacy, and terms summaries to understand key purchase and ownership policies before ordering.",
+  });
+
   return (
     <div className="min-h-screen flex flex-col bg-[#F5EDE0]">
       <Header />

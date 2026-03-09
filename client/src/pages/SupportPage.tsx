@@ -2,8 +2,15 @@ import { Link } from "wouter";
 import { ArrowLeft, ArrowRight, ShieldCheck, CircleHelp, Mail } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { usePageMeta } from "@/hooks/usePageMeta";
 
 export default function SupportPage() {
+  usePageMeta({
+    title: "Warranty & Support | jude Customer Care",
+    description:
+      "Access jude warranty overview, support channels, FAQ entry points, and contact options for delivery, installation, and order ownership assistance.",
+  });
+
   return (
     <div className="min-h-screen flex flex-col bg-[#F5EDE0]">
       <Header />

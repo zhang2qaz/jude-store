@@ -9,10 +9,16 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useCart } from "@/contexts/CartContext";
 import { RECOMMENDED_PAIRINGS, formatPrice } from "@/lib/product";
+import { usePageMeta } from "@/hooks/usePageMeta";
 
 export default function CartPage() {
   const { items, removeFromCart, updateQuantity, totalPrice } = useCart();
   const [, navigate] = useLocation();
+  usePageMeta({
+    title: items.length > 0 ? `Cart (${items.length}) | jude` : "Cart | jude",
+    description:
+      "Review selected jude products, adjust quantities, and continue to checkout with delivery and support information available.",
+  });
 
   if (items.length === 0) {
     return (

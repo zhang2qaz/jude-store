@@ -12,8 +12,15 @@ import { motion } from "framer-motion";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { PRODUCT } from "@/lib/product";
+import { usePageMeta } from "@/hooks/usePageMeta";
 
 export default function Home() {
+  usePageMeta({
+    title: "jude Premium Refrigerators | Design-Forward Home Appliances",
+    description:
+      "Explore jude premium French 4-door refrigerators with 9 signature finishes, clear product specs, delivery guidance, and support resources.",
+  });
+
   return (
     <div className="min-h-screen flex flex-col bg-[#F5EDE0]">
       <Header />

@@ -3,6 +3,7 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { usePageMeta } from "@/hooks/usePageMeta";
 
 const FAQ_GROUPS = [
   {
@@ -90,6 +91,26 @@ const FAQ_GROUPS = [
 ];
 
 export default function FaqPage() {
+  usePageMeta({
+    title: "FAQ | Product, Delivery, Installation, Warranty | jude",
+    description:
+      "Read jude pre-purchase FAQs covering product basics, dimensions and fit, delivery, installation, warranty, support, returns, and preorder guidance.",
+    structuredData: {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: FAQ_GROUPS.flatMap((group) =>
+        group.items.map((item) => ({
+          "@type": "Question",
+          name: item.q,
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: item.a,
+          },
+        }))
+      ),
+    },
+  });
+
   return (
     <div className="min-h-screen flex flex-col bg-[#F5EDE0]">
       <Header />
