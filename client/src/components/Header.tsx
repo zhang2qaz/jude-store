@@ -34,7 +34,10 @@ export default function Header() {
       <div className="container flex items-center justify-between h-16 md:h-20">
         {/* Logo */}
         <Link href="/">
-          <span className="font-display text-2xl md:text-3xl font-medium tracking-tight text-[#1E1E1E]">
+          <span
+            className="text-2xl md:text-3xl font-medium tracking-tight text-[#1E1E1E]"
+            style={{ fontFamily: "'Noto Serif Display', Georgia, serif" }}
+          >
             jude
           </span>
         </Link>

@@ -31,12 +31,11 @@ export default function Home() {
               <p className="font-mono-brand text-xs tracking-[0.3em] uppercase text-[#1E1E1E]/60 mb-6">
                 jude premium appliances
               </p>
-              <h1 className="font-display text-4xl md:text-6xl lg:text-7xl font-medium leading-[1.08] mb-6">
-                <span className="text-[#4A3520]">French 4-door retro</span>
+              <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-medium leading-[0.95] mb-8">
+                <span className="text-[#4A3520]">your </span>
+                <span className="text-[#D4917F]">life, </span>
                 <br />
-                <span className="text-[#F5EDE0]">refrigerator</span>
-                <br />
-                <span className="text-[#D4917F]">for modern U.S. homes</span>
+                <span className="text-[#F5EDE0]">styled</span>
               </h1>
               <p className="font-body text-base md:text-lg text-[#1E1E1E]/70 max-w-md mb-10 leading-relaxed">
                 508L capacity, 9 signature color finishes, and white-glove delivery support.
