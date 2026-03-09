@@ -162,6 +162,113 @@ export const appRouter = router({
       return { orders };
     }),
 
+    /** Admin: summarize customer phones and order concentration */
+    adminPhoneStats: adminProcedure
+      .input(
+        z
+          .object({
+            q: z.string().optional(),
+            limit: z.number().int().min(1).max(200).default(50),
+          })
+          .optional()
+      )
+      .query(async ({ input }) => {
+        const allOrders = await getAllOrders();
+
+        const normalizePhoneKey = (raw: string) => {
+          const digits = raw.replace(/\D/g, "");
+          if (!digits) return raw.trim().toLowerCase();
+          if (digits.length >= 10) return digits.slice(-10);
+          return digits;
+        };
+
+        const formatPhoneDisplay = (raw: string) => {
+          const digits = raw.replace(/\D/g, "");
+          const local = digits.length >= 10 ? digits.slice(-10) : digits;
+          if (local.length === 10) {
+            return `+1 (${local.slice(0, 3)}) ${local.slice(3, 6)}-${local.slice(6)}`;
+          }
+          return raw.trim();
+        };
+
+        const byPhone = new Map<
+          string,
+          {
+            phoneKey: string;
+            phoneDisplay: string;
+            orderCount: number;
+            totalRevenue: number;
+            latestOrderAt: string | null;
+            customerNames: Set<string>;
+            emails: Set<string>;
+          }
+        >();
+
+        for (const order of allOrders) {
+          const rawPhone = order.phone ?? "";
+          const phoneKey = normalizePhoneKey(rawPhone);
+          const existing = byPhone.get(phoneKey);
+          const name = `${order.firstName} ${order.lastName}`.trim();
+          const orderTime = order.createdAt ? new Date(order.createdAt as unknown as string).toISOString() : null;
+
+          if (!existing) {
+            byPhone.set(phoneKey, {
+              phoneKey,
+              phoneDisplay: formatPhoneDisplay(rawPhone),
+              orderCount: 1,
+              totalRevenue: order.totalPrice,
+              latestOrderAt: orderTime,
+              customerNames: new Set(name ? [name] : []),
+              emails: new Set(order.email ? [order.email] : []),
+            });
+            continue;
+          }
+
+          existing.orderCount += 1;
+          existing.totalRevenue += order.totalPrice;
+          if (name) existing.customerNames.add(name);
+          if (order.email) existing.emails.add(order.email);
+          if (!existing.latestOrderAt || (orderTime && orderTime > existing.latestOrderAt)) {
+            existing.latestOrderAt = orderTime;
+          }
+        }
+
+        const query = input?.q?.trim().toLowerCase();
+        let rows = Array.from(byPhone.values()).map(item => ({
+          phoneKey: item.phoneKey,
+          phoneDisplay: item.phoneDisplay,
+          orderCount: item.orderCount,
+          totalRevenue: item.totalRevenue,
+          latestOrderAt: item.latestOrderAt,
+          customerNames: Array.from(item.customerNames),
+          emails: Array.from(item.emails),
+        }));
+
+        if (query) {
+          rows = rows.filter(item =>
+            item.phoneDisplay.toLowerCase().includes(query) ||
+            item.phoneKey.includes(query) ||
+            item.customerNames.some(name => name.toLowerCase().includes(query)) ||
+            item.emails.some(email => email.toLowerCase().includes(query))
+          );
+        }
+
+        rows.sort((a, b) => {
+          if (b.orderCount !== a.orderCount) return b.orderCount - a.orderCount;
+          if (b.totalRevenue !== a.totalRevenue) return b.totalRevenue - a.totalRevenue;
+          return (b.latestOrderAt ?? "").localeCompare(a.latestOrderAt ?? "");
+        });
+
+        const limit = input?.limit ?? 50;
+        const top = rows.slice(0, limit);
+
+        return {
+          phones: top,
+          totalUniquePhones: byPhone.size,
+          totalRowsAfterFilter: rows.length,
+        };
+      }),
+
     /** Admin: update order status */
     adminUpdateStatus: adminProcedure
       .input(
