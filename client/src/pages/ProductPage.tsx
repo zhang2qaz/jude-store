@@ -127,6 +127,18 @@ export default function ProductPage() {
                 {PRODUCT.description}
               </p>
 
+              {/* Key Product Overview */}
+              <div className="grid grid-cols-2 gap-3 mb-8">
+                {PRODUCT.overview.map((item) => (
+                  <div key={item.label} className="bg-[#FFFBF5] border border-[#D9CFC2] rounded p-3">
+                    <p className="font-mono-brand text-[10px] tracking-wider uppercase text-[#6B6358] mb-1">
+                      {item.label}
+                    </p>
+                    <p className="font-body text-sm text-[#1E1E1E]">{item.value}</p>
+                  </div>
+                ))}
+              </div>
+
               {/* Color Selector */}
               <div className="mb-8">
                 <p className="font-mono-brand text-xs tracking-widest uppercase text-[#6B6358] mb-4">
@@ -304,12 +316,14 @@ export default function ProductPage() {
           </div>
         </section>
 
-        {/* Features & Specs */}
+        {/* Product Core Details */}
         <section className="bg-[#1E1E1E] text-[#F5EDE0] py-16 md:py-24">
           <div className="container">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 mb-14">
               <div>
-                <p className="font-mono-brand text-xs tracking-[0.3em] uppercase text-[#A3A800] mb-4">Features</p>
+                <p className="font-mono-brand text-xs tracking-[0.3em] uppercase text-[#A3A800] mb-4">
+                  Key Features
+                </p>
                 <h2 className="font-display text-3xl font-medium mb-8">Built Without Compromise</h2>
                 <ul className="space-y-4">
                   {PRODUCT.features.map((feature, i) => (
@@ -321,16 +335,78 @@ export default function ProductPage() {
                 </ul>
               </div>
               <div>
-                <p className="font-mono-brand text-xs tracking-[0.3em] uppercase text-[#A3A800] mb-4">Specifications</p>
-                <h2 className="font-display text-3xl font-medium mb-8">Technical Details</h2>
+                <p className="font-mono-brand text-xs tracking-[0.3em] uppercase text-[#A3A800] mb-4">
+                  Technical Specifications
+                </p>
+                <h2 className="font-display text-3xl font-medium mb-8">At a Glance</h2>
                 <div className="space-y-0">
                   {Object.entries(PRODUCT.specs).map(([key, value]) => (
-                    <div key={key} className="flex justify-between items-center py-4 border-b border-[#F5EDE0]/10">
-                      <span className="font-mono-brand text-xs tracking-wider uppercase text-[#F5EDE0]/50">{key}</span>
+                    <div
+                      key={key}
+                      className="flex justify-between items-center py-4 border-b border-[#F5EDE0]/10"
+                    >
+                      <span className="font-mono-brand text-xs tracking-wider uppercase text-[#F5EDE0]/50">
+                        {key}
+                      </span>
                       <span className="font-body text-sm">{value}</span>
                     </div>
                   ))}
                 </div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              <div className="border border-[#F5EDE0]/12 rounded-lg p-6 bg-[#F5EDE0]/5">
+                <p className="font-mono-brand text-[11px] tracking-[0.2em] uppercase text-[#A3A800] mb-4">
+                  Dimensions & Fit
+                </p>
+                <div className="space-y-3">
+                  {Object.entries(PRODUCT.dimensionsGuide).map(([key, value]) => (
+                    <div key={key} className="flex items-start justify-between gap-4">
+                      <span className="font-body text-xs text-[#F5EDE0]/60">{key}</span>
+                      <span className="font-body text-xs text-[#F5EDE0] text-right">{value}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="border border-[#F5EDE0]/12 rounded-lg p-6 bg-[#F5EDE0]/5">
+                <p className="font-mono-brand text-[11px] tracking-[0.2em] uppercase text-[#A3A800] mb-4">
+                  Finish & Materials
+                </p>
+                <ul className="space-y-3">
+                  {PRODUCT.finishMaterials.map((item, idx) => (
+                    <li key={idx} className="font-body text-xs text-[#F5EDE0]/80 leading-relaxed">
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="border border-[#F5EDE0]/12 rounded-lg p-6 bg-[#F5EDE0]/5">
+                <p className="font-mono-brand text-[11px] tracking-[0.2em] uppercase text-[#A3A800] mb-4">
+                  Electrical & Placement
+                </p>
+                <p className="font-mono-brand text-[10px] tracking-widest uppercase text-[#F5EDE0]/60 mb-2">
+                  Electrical Requirements
+                </p>
+                <ul className="space-y-2 mb-4">
+                  {PRODUCT.electricalRequirements.map((item, idx) => (
+                    <li key={idx} className="font-body text-xs text-[#F5EDE0]/80 leading-relaxed">
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+                <p className="font-mono-brand text-[10px] tracking-widest uppercase text-[#F5EDE0]/60 mb-2">
+                  Product Fit Guidance
+                </p>
+                <ul className="space-y-2">
+                  {PRODUCT.placementGuidance.map((item, idx) => (
+                    <li key={idx} className="font-body text-xs text-[#F5EDE0]/80 leading-relaxed">
+                      {item}
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
           </div>

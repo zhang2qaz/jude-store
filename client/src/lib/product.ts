@@ -20,6 +20,12 @@ export const PRODUCT = {
   tagline: "your life, styled",
   description: `Rooted in the bold individuality of New York City, the jude French 4-Door Retro Refrigerator is designed for homes that celebrate personal expression. Each unit features an art-grade lacquer finish in your choice of vibrant color, merging mid-century warmth with modern precision.`,
   brandStatement: `We celebrate the uniqueness of every home by crafting appliances that empower personal style and reflect individuality.`,
+  overview: [
+    { label: "Configuration", value: "French 4-Door" },
+    { label: "Total Capacity", value: "508 Liters" },
+    { label: "Compressor", value: "Inverter, Ultra-Quiet" },
+    { label: "Color Program", value: "9 Signature Finishes" },
+  ],
   features: [
     "508L total capacity across four compartments",
     "French door design with art-grade lacquer finish",
@@ -36,6 +42,32 @@ export const PRODUCT = {
     "Noise Level": "38 dB",
     "Warranty": "5 Years",
   },
+  dimensionsGuide: {
+    "Overall (H x W x D)": '70.9" x 32.3" x 27.6"',
+    "Cabinet Depth (without door)": '24.8"',
+    "Door Swing Clearance": '41.5"',
+    "Recommended Rear Clearance": '2"',
+    "Recommended Side Clearance": '1" each side',
+    "Recommended Top Clearance": '2"',
+  },
+  finishMaterials: [
+    "Art-grade lacquered steel exterior in curated colorways",
+    "Anti-fingerprint clear protective top layer",
+    "Signature brushed metal handles and trim accents",
+    "Tempered glass adjustable shelving with reinforced edges",
+  ],
+  electricalRequirements: [
+    "120V / 60Hz dedicated outlet (U.S. standard)",
+    "15A dedicated circuit recommended",
+    "3-prong grounded plug required",
+    "Do not use extension cords or shared high-load circuits",
+  ],
+  placementGuidance: [
+    "Best for standard U.S. kitchen cutouts with extra rear ventilation space",
+    "Allow full door opening clearance before placing next to walls or islands",
+    "Keep away from direct heat sources (ovens, radiant cooktops) when possible",
+    "Professional leveling at install is recommended for optimal door seal performance",
+  ],
   colors: [
     {
       name: "Vermillion Red",
